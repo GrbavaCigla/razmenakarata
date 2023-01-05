@@ -9,6 +9,7 @@ django-filter = "*"
 markdown = "*"
 lxml = "*"
 requests = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 

@@ -2,3 +2,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html, body {
+        @apply h-full bg-base-200;
+    }
+}
+
+@layer components {
+    /* TODO: Use autoprefixer or something */
+    .focusable {
+        @apply outline-none focus:outline-offset-8 focus:outline-neutral focus:border-transparent border-transparent focus:ring-transparent transition-[outline];
+    }
+}
