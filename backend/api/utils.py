@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from urllib.parse import urlparse
 import requests
 from lxml import html
 from .models import Event
@@ -18,13 +19,19 @@ def refresh_db():
             'span[@class="minifp-introtitle"]/a/text()'
         )
         etype = element.xpath('span[@class="minifp-anotherlinks"]/a/text()')[0]
-        thumbnail = element.xpath("a/img/@src")[0]
+        thumbnail = urlparse(element.xpath("a/img/@src")[0])
+        # TODO: Unhardcode this
+        thumbnail = thumbnail._replace(
+            netloc="127.0.0.1:8000", path="api/" + thumbnail.path
+        )
 
         name = str(name).strip()
         date = str(date).strip()
         location = str(location).strip()
         etype = str(etype).strip()
-        thumbnail = str(thumbnail).strip()
+        thumbnail = thumbnail.geturl()
+
+        print(thumbnail)
 
         Event(
             id=i,
