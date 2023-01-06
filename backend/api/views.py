@@ -12,8 +12,7 @@ def get_events(request):
 
 
 def get_proxy_image(request):
-    url = request.GET['url']
-    print(url)
+    url = request.build_absolute_uri()
     parsed = urlparse(url)
     url = parsed._replace(netloc='www.gigstix.com', path=parsed.path[4:]).geturl()
 

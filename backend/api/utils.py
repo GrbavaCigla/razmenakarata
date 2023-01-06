@@ -22,7 +22,7 @@ def refresh_db():
         thumbnail = urlparse(element.xpath("a/img/@src")[0])
         # TODO: Unhardcode this
         thumbnail = thumbnail._replace(
-            netloc="127.0.0.1:8000", path="api/" + thumbnail.path
+            netloc="127.0.0.1:8000", path="api" + thumbnail.path
         )
 
         name = str(name).strip()
@@ -30,8 +30,6 @@ def refresh_db():
         location = str(location).strip()
         etype = str(etype).strip()
         thumbnail = thumbnail.geturl()
-
-        print(thumbnail)
 
         Event(
             id=i,
