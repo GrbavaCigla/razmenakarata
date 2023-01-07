@@ -4,7 +4,7 @@
 
 <div class="relative font-bold">
   <input
-    placeholder="Search"
+    placeholder="Pretraži"
     class="input p-2 bg-base-200 w-full"
     type="text"
     name=""
