@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="rounded-box shadow bg-base-100 p-4 gap-4 grid w-full grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] h-full overflow-y-auto"
+  class="rounded-box shadow bg-base-100 p-4 gap-4 grid w-full grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] h-full overflow-y-auto items-start"
 >
   {#if events.length == 0}
     <!-- TODO: Make this less ugly -->
