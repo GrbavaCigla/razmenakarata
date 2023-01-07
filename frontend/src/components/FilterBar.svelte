@@ -1,10 +1,12 @@
 <script lang="ts">
   import SearchBar from "./SearchBar.svelte";
+
+  export let search_value: string = "";
 </script>
 
 <div class="w-full flex justify-between">
   <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex justify-center">
-    <SearchBar />
+    <SearchBar bind:value={search_value} />
     <select class="select bg-base-200">
       <option value="city">City</option>
     </select>

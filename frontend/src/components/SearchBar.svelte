@@ -1,3 +1,7 @@
+<script lang="ts">
+  export let value: string = "";
+</script>
+
 <div class="relative font-bold">
   <input
     placeholder="Search"
@@ -5,6 +9,7 @@
     type="text"
     name=""
     id=""
+    bind:value
   />
   <!-- TODO: Add button click animation -->
   <button
