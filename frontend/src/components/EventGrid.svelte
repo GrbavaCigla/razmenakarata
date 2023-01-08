@@ -18,18 +18,20 @@
   });
 </script>
 
-<div
-  class="rounded-box shadow bg-base-100 p-4 gap-4 grid w-full grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] h-full overflow-y-auto items-start"
->
+<div class="rounded-box shadow bg-base-100 p-4 w-full overflow-y-auto h-full">
   {#if events.length == 0}
     <!-- TODO: Make this less ugly -->
-    <div class="leading-normal text-center p-16">
-      <h1 class="text-3xl">No data :(</h1>
-      <p class="font-bold">Something went wrong.</p>
+    <div class="flex w-full h-full">
+      <div class="m-auto p-16">
+        <h1 class="text-5xl text-center">No data :(</h1>
+        <p class="text-xl font-bold">Something went wrong.</p>
+      </div>
     </div>
   {:else}
-    {#each filtered as event}
-      <EventCard {...event} />
-    {/each}
+    <div class="gap-4 grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] ">
+      {#each filtered as event}
+        <EventCard {...event} />
+      {/each}
+    </div>
   {/if}
 </div>

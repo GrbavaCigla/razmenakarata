@@ -4,7 +4,8 @@
     export let location: string = "";
 </script>
 
-<div class="card shadow">
+<!-- TODO: Finish the design -->
+<div class="card card-compact shadow">
     <figure><img src={thumbnail} alt="thumbnail"></figure>
     <div class="card-body">
         <div class="card-title">
