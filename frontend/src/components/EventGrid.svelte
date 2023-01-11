@@ -4,12 +4,14 @@
   import EventCard from "./EventCard.svelte";
 
   export let search_value: string = "";
+  export let category: string = "";
   let events: [] = [];
 
   // TODO: Optimize this using fuzzysort.prepare
   $: filtered = fuzzysort
     .go(search_value, events, { key: "name", all: true })
-    .map((x) => x.obj);
+    .map(x => x.obj)
+    .filter(x => category == "" ? true : x.category == category)
 
   onMount(async () => {
     // TODO: Unhardcode this url
