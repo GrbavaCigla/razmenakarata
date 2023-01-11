@@ -6,7 +6,8 @@
 
 <!-- TODO: Finish the design -->
 <div class="card card-compact shadow">
-    <figure><img src={thumbnail} alt="thumbnail"></figure>
+    <!-- TODO: Unhardcode this -->
+    <figure><img src={"http://127.0.0.1:8000" + thumbnail} alt="thumbnail"></figure>
     <div class="card-body">
         <div class="card-title">
             {name}

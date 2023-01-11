@@ -10,6 +10,7 @@ markdown = "*"
 lxml = "*"
 requests = "*"
 django-cors-headers = "*"
+huey = "*"
 
 [dev-packages]
 

@@ -1,22 +1,24 @@
 import requests
-from urllib.parse import urlparse
-from rest_framework.decorators import api_view
-from .utils import refresh_db
+
 from django.http import StreamingHttpResponse
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+
+from .models import Event
+from .serializers import EventSerializer
 
 
-@api_view(['GET'])
-def get_events(request):
-    # TODO: Run periodicly instead of everytime
-    return refresh_db()
+class EventList(ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
 
-def get_proxy_image(request):
-    url = request.build_absolute_uri()
-    parsed = urlparse(url)
-    url = parsed._replace(netloc='www.gigstix.com', path=parsed.path[4:]).geturl()
+class EventDetail(RetrieveAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
-    response = requests.get(url, stream=True)
+
+def get_proxy_image(request, id):
+    response = requests.get(Event.objects.get(id=id).thumbnail, stream=True)
     return StreamingHttpResponse(
         response.raw,
         content_type=response.headers.get('content-type'),

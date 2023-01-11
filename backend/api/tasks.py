@@ -1,16 +1,22 @@
-from rest_framework.response import Response
-from urllib.parse import urlparse
 import requests
 from lxml import html
+
+from huey import crontab
+from huey.contrib.djhuey import db_periodic_task
+from rest_framework.response import Response
+
 from .models import Event
 from .serializers import EventSerializer
 
 
+# TODO: Visit every page
+@db_periodic_task(crontab(minute='0'))
 def refresh_db():
-    resp = requests.get("http://www.gigstix.com/")
+    resp = requests.get('http://www.gigstix.com/')
     if not resp.ok:
         return Response(resp.text, status=resp.status_code)
 
+    # TODO: Delete this delete
     Event.objects.all().delete()
 
     doc = html.document_fromstring(resp.text)
@@ -18,25 +24,21 @@ def refresh_db():
         name, date, location = element.xpath(
             'span[@class="minifp-introtitle"]/a/text()'
         )
-        etype = element.xpath('span[@class="minifp-anotherlinks"]/a/text()')[0]
-        thumbnail = urlparse(element.xpath("a/img/@src")[0])
-        # TODO: Unhardcode this
-        thumbnail = thumbnail._replace(
-            netloc="127.0.0.1:8000", path="api" + thumbnail.path
-        )
+        category = element.xpath('span[@class="minifp-anotherlinks"]/a/text()')[0]
+        thumbnail = element.xpath('a/img/@src')[0]
 
         name = str(name).strip()
         date = str(date).strip()
         location = str(location).strip()
-        etype = str(etype).strip()
-        thumbnail = thumbnail.geturl()
+        category = str(category).strip()
+        thumbnail = str(thumbnail)
 
         Event(
             id=i,
             name=name,
             location=location,
             date=date,
-            etype=etype,
+            category=category,
             thumbnail=thumbnail,
         ).save()
 
