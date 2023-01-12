@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'huey.contrib.djhuey',
+    'rest_framework_simplejwt',
     'corsheaders',
     'api',
     'rest_framework',
@@ -139,4 +140,10 @@ CACHES = {
 
 HUEY = {
     'immediate': False
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }

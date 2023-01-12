@@ -11,6 +11,7 @@ lxml = "*"
 requests = "*"
 django-cors-headers = "*"
 huey = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
