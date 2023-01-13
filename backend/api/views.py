@@ -1,11 +1,13 @@
 import requests
 
 from django.http import StreamingHttpResponse
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.decorators import action
 
 from .models import Event, Ticket
+from .permissions import IsOwnerOrReadOnly
 from .serializers import EventSerializer, TicketSerializer
 
 
@@ -27,3 +29,7 @@ class EventViewset(ReadOnlyModelViewSet):
 class TicketViewset(ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

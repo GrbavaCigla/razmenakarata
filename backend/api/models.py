@@ -15,5 +15,5 @@ class Event(models.Model):
 class Ticket(models.Model):
     price = models.FloatField()
     event = models.ForeignKey(Event, models.CASCADE)
-    user = models.ForeignKey(User, models.CASCADE)
+    owner = models.ForeignKey(User, models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

@@ -1,4 +1,8 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    ModelSerializer,
+    SerializerMethodField,
+    ReadOnlyField,
+)
 from django.urls import reverse
 
 from .models import Event, Ticket
@@ -20,3 +24,4 @@ class TicketSerializer(ModelSerializer):
     class Meta:
         model = Ticket
         exclude = ('created', 'id')
+        read_only_fields = ('owner',)
