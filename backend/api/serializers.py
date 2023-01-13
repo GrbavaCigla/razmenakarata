@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from django.urls import reverse
 
-from .models import Event
+from .models import Event, Ticket
 
 
 class EventSerializer(ModelSerializer):
@@ -13,4 +13,10 @@ class EventSerializer(ModelSerializer):
 
     class Meta:
         model = Event
+        exclude = ('created', 'id')
+
+
+class TicketSerializer(ModelSerializer):
+    class Meta:
+        model = Ticket
         exclude = ('created', 'id')

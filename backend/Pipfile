@@ -12,6 +12,7 @@ requests = "*"
 django-cors-headers = "*"
 huey = "*"
 djangorestframework-simplejwt = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 

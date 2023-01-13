@@ -1,15 +1,23 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from rest_framework_nested.routers import SimpleRouter, NestedSimpleRouter
 
-from .views import get_proxy_image, EventDetail, EventList
+from .views import EventViewset, TicketViewset
+
+
+router = SimpleRouter()
+router.register(r'events', EventViewset)
+
+event_router = NestedSimpleRouter(router, r'events', lookup='events')
+event_router.register(r'tickets', TicketViewset)
+
 
 urlpatterns = [
-    path("events/", EventList.as_view(), name="event-list"),
-    path("events/<int:id>/", EventDetail.as_view(), name="event-detail"),
-    path("events/<int:id>/thumbnail", get_proxy_image, name="event-thumbnail"),
-    path("token/", TokenObtainPairView.as_view(), name="token-obtain"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
+    path('', include(router.urls)),
+    path('', include(event_router.urls)),
+    path('token/', TokenObtainPairView.as_view(), name='token-obtain'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
 ]
