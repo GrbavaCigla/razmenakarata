@@ -9,6 +9,7 @@ class Event(models.Model):
     category = models.CharField(max_length=16)
     thumbnail = models.URLField()
     page = models.URLField()
+
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -18,7 +19,11 @@ class Event(models.Model):
 class Ticket(models.Model):
     price = models.FloatField()
     event = models.ForeignKey(Event, models.CASCADE)
+    amount = models.PositiveSmallIntegerField(default=1)
+    online = models.BooleanField()
+    packet = models.CharField(max_length=128)
     owner = models.ForeignKey(User, models.CASCADE)
+
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

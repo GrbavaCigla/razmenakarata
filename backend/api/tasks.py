@@ -9,7 +9,8 @@ from .models import Event
 
 
 # TODO: Visit every page
-@db_periodic_task(crontab(minute='0'))
+# TODO: Make this run every hour instead of every minutec
+@db_periodic_task(crontab())
 def refresh_db():
     resp = requests.get('http://www.gigstix.com/')
     if not resp.ok:

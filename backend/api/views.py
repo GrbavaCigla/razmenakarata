@@ -16,8 +16,8 @@ class EventViewset(ReadOnlyModelViewSet):
     serializer_class = EventSerializer
 
     @action(detail=True, renderer_classes=[StaticHTMLRenderer])
-    def thumbnail(request, id):
-        response = requests.get(Event.objects.get(id=id).thumbnail, stream=True)
+    def thumbnail(self, request, pk):
+        response = requests.get(Event.objects.get(pk=pk).thumbnail, stream=True)
         return StreamingHttpResponse(
             response.raw,
             content_type=response.headers.get('content-type'),
@@ -31,5 +31,12 @@ class TicketViewset(ModelViewSet):
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
+    def get_queryset(self):
+        return Ticket.objects.filter(event=self.kwargs['event_pk'])
+
+
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(
+            owner=self.request.user,
+            event_id=self.kwargs['event_pk']
+        )

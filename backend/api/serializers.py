@@ -1,27 +1,24 @@
 from rest_framework.serializers import (
     ModelSerializer,
-    SerializerMethodField,
-    ReadOnlyField,
+    HyperlinkedIdentityField,
+    SlugRelatedField,
 )
-from django.urls import reverse
 
 from .models import Event, Ticket
 
 
 class EventSerializer(ModelSerializer):
-    thumbnail = SerializerMethodField()
-
-    def get_thumbnail(self, obj):
-        # TODO: Make this absolute url instead of just path
-        return reverse('event-thumbnail', args=[obj.id])
+    thumbnail = HyperlinkedIdentityField(view_name='event-thumbnail')
 
     class Meta:
         model = Event
-        exclude = ('created', 'id')
+        exclude = ('created', 'page')
 
 
 class TicketSerializer(ModelSerializer):
+    owner = SlugRelatedField(slug_field='username', read_only=True)
+
     class Meta:
         model = Ticket
-        exclude = ('created', 'id')
+        exclude = ('created', 'event')
         read_only_fields = ('owner',)
