@@ -11,9 +11,15 @@ class Event(models.Model):
     page = models.URLField()
     created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-id']
+
 
 class Ticket(models.Model):
     price = models.FloatField()
     event = models.ForeignKey(Event, models.CASCADE)
     owner = models.ForeignKey(User, models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-id']

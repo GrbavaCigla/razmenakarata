@@ -11,8 +11,8 @@ from .views import EventViewset, TicketViewset
 router = SimpleRouter()
 router.register(r'events', EventViewset)
 
-event_router = NestedSimpleRouter(router, r'events', lookup='events')
-event_router.register(r'tickets', TicketViewset)
+event_router = NestedSimpleRouter(router, r'events', lookup='event')
+event_router.register(r'tickets', TicketViewset, basename='ticket')
 
 
 urlpatterns = [

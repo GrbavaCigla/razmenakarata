@@ -6,7 +6,6 @@ from huey.contrib.djhuey import db_periodic_task
 from rest_framework.response import Response
 
 from .models import Event
-from .serializers import EventSerializer
 
 
 # TODO: Visit every page
@@ -41,5 +40,3 @@ def refresh_db():
             category=category,
             thumbnail=thumbnail,
         ).save()
-
-    return Response(EventSerializer(Event.objects.all(), many=True).data)
