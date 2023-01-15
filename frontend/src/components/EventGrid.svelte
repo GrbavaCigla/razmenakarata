@@ -15,12 +15,12 @@
 
   onMount(async () => {
     // TODO: Unhardcode this url
-    const res = await fetch("http://127.0.0.1:8000/api/v1/events/?format=json");
+    const res = await fetch("http://127.0.0.1:8000/api/v1/events/");
     events = await res.json();
   });
 </script>
 
-<div class="rounded-box shadow bg-base-100 p-4 w-full overflow-y-auto h-full">
+<div class="rounded-box shadow bg-base-100 p-4 w-full h-full">
   {#if events.length == 0}
     <!-- TODO: Make this less ugly -->
     <div class="flex w-full h-full">

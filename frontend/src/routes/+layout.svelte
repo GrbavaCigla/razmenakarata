@@ -2,5 +2,7 @@
   import "../app.postcss";
 </script>
 
-<slot />
+<div class="bg-base-200 min-h-full">
+  <slot />
+</div>
 <!-- TOOD: Add something -->
