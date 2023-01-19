@@ -4,7 +4,7 @@
 </script>
 
 <div class="w-full flex justify-between">
-  <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex justify-center">
+  <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex justify-center w-full lg:w-auto">
     <SearchBar />
     <select class="select bg-base-200">
       <option value="grad">Grad</option>
@@ -20,13 +20,8 @@
       <option value="Događaji">Događaji</option>
     </select>
   </div>
-  <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex">
-    <select class="select bg-base-200">
-      <option value="alfabetski">Alfabetski</option>
-    </select>
-    <select class="select bg-base-200">
-      <option value="rastuce">Rastuće</option>
-      <option value="opadajuce">Opadajuće</option>
-    </select>
+  <div class="rounded-box shadow bg-base-100 p-4 gap-4 hidden lg:flex">
+    <button class="btn">Ulogujte se</button>
+    <button class="btn btn-primary">Prodajte kartu</button>
   </div>
 </div>

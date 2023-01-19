@@ -2,7 +2,7 @@
   import { search } from "../stores/filter";
 </script>
 
-<div class="relative font-bold">
+<div class="relative font-bold w-full">
   <input
     placeholder="Pretraži"
     class="input p-2 bg-base-200 w-full"
