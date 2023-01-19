@@ -13,7 +13,8 @@
     .filter(x => $category == "" ? true : x.category == $category)
 </script>
 
-<div class="rounded-box shadow bg-base-100 p-4 w-full h-full">
+<!-- <div class="rounded-box shadow bg-base-100 p-4 w-full h-full"> -->
+<div class="w-full h-full">
   {#if events.length == 0}
     <!-- TODO: Make this less ugly -->
     <div class="flex w-full h-full">

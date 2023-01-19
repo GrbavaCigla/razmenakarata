@@ -5,9 +5,9 @@
 </script>
 
 <!-- TODO: Finish the design -->
-<div class="card card-compact shadow hover:scale-125 hover:z-10 bg-base-100 transition-all">
+<div class="card card-compact shadow md:hover:scale-105 z-10 bg-base-100 transition-all">
     <!-- TODO: Unhardcode this -->
-    <figure><img src={thumbnail} alt="thumbnail" width="280" height="140"></figure>
+    <figure><img src={thumbnail} class="w-full" alt="thumbnail" width="280" height="140"></figure>
     <div class="card-body">
         <div class="card-title">
             {name}

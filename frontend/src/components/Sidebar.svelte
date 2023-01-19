@@ -1,11 +1,9 @@
 <script lang="ts">
-  import SearchBar from "./SearchBar.svelte";
   import { category } from "../stores/filter";
 </script>
 
-<div class="w-full flex justify-between">
-  <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex justify-center w-full lg:w-auto">
-    <SearchBar />
+<div class="card card-compact bg-base-100">
+  <div class="card-body flex gap-4">
     <select class="select bg-base-200">
       <option value="grad">Grad</option>
     </select>
@@ -19,9 +17,5 @@
       <option value="Sport">Sport</option>
       <option value="Događaji">Događaji</option>
     </select>
-  </div>
-  <div class="rounded-box shadow bg-base-100 p-4 gap-4 hidden lg:flex">
-    <button class="btn">Ulogujte se</button>
-    <button class="btn btn-primary">Prodajte kartu</button>
   </div>
 </div>
