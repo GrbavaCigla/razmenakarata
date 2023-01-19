@@ -7,10 +7,10 @@
   export let data: PageData;
 </script>
 
-<div class="drawer h-full">
+<div class="drawer">
   <input id="main-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
-    <div class="container mx-auto flex flex-col gap-4 p-4">
+    <div class="container mx-auto flex flex-col gap-4 p-4 h-full">
       <div class="sticky top-4 z-20 w-full">
         <Navbar />
       </div>
@@ -20,7 +20,7 @@
           <Sidebar />
         </div>
       </div>
-      <footer class="shadow rounded-box p-4 bg-base-100">
+      <footer class="shadow mt-auto rounded-box p-4 bg-base-100">
         <!-- TODO: Add logo -->
         <p>Copyright © 2023 - All right reserved</p>
       </footer>
