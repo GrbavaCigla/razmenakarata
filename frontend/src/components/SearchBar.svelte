@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let value: string = "";
+  import { search } from "../stores/filter";
 </script>
 
 <div class="relative font-bold">
@@ -9,6 +9,6 @@
     type="text"
     name=""
     id=""
-    bind:value
+    bind:value={$search}
   />
 </div>

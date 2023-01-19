@@ -1,17 +1,15 @@
 <script lang="ts">
   import SearchBar from "./SearchBar.svelte";
-
-  export let search_value: string = "";
-  export let category: string = "";
+  import { category } from "../stores/filter";
 </script>
 
 <div class="w-full flex justify-between">
   <div class="rounded-box shadow bg-base-100 p-4 gap-4 flex justify-center">
-    <SearchBar bind:value={search_value} />
+    <SearchBar />
     <select class="select bg-base-200">
       <option value="grad">Grad</option>
     </select>
-    <select bind:value="{category}" class="select bg-base-200">
+    <select class="select bg-base-200" bind:value="{$category}">
       <option value="">Kategorija</option>
       <option value="Doček 7531">Doček 7531</option>
       <option value="Dom kulture">Dom kulture</option>
