@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Navbar from "../components/Navbar.svelte";
-  import EventGrid from "../components/EventGrid.svelte";
-  import Sidebar from "../components/Sidebar.svelte";
+  import Navbar from "../../components/Navbar.svelte";
+  import EventGrid from "../../components/EventGrid.svelte";
+  import Sidebar from "../../components/Sidebar.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
