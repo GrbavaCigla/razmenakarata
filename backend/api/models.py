@@ -6,6 +6,7 @@ class Event(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
     location = models.CharField(max_length=64)
+    # TODO: Change this to proper date field
     date = models.CharField(max_length=32)
     category = models.CharField(max_length=16)
     thumbnail = models.URLField()

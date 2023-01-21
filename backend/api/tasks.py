@@ -35,6 +35,7 @@ def refresh_db():
     events = []
     doc = html.document_fromstring(resp.text)
     for i, element in enumerate(doc.xpath(XPATHS['grid'])):
+        # TODO: Format date
         data = {}
         data['name'], data['date'], data['location'] = element.xpath(XPATHS['title'])
         data['category'] = element.xpath(XPATHS['category'])[0]
