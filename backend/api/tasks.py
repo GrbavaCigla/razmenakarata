@@ -11,6 +11,7 @@ from .utils import split_list
 
 HOST = 'http://www.gigstix.com'
 XPATHS = {
+    'grid': '//table[@class="minifp"]/tr/td',
     'title': 'span[@class="minifp-introtitle"]/a/text()',
     'category': 'span[@class="minifp-anotherlinks"]/a/text()',
     'thumbnail': 'a/img/@src',
@@ -33,7 +34,7 @@ def refresh_db():
 
     events = []
     doc = html.document_fromstring(resp.text)
-    for i, element in enumerate(doc.xpath('//table[@class="minifp"]/tr/td')):
+    for i, element in enumerate(doc.xpath(XPATHS['grid'])):
         data = {}
         data['name'], data['date'], data['location'] = element.xpath(XPATHS['title'])
         data['category'] = element.xpath(XPATHS['category'])[0]
@@ -51,6 +52,6 @@ def refresh_db():
         data['description'] = ' '.join(page[0][1:])
         data['location'] = page[1][0]
     
-        events.append(Event(**data))
+        events.append(Event(id=i, **data))
 
     Event.objects.bulk_create(events)

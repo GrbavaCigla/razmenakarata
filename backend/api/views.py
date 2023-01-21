@@ -34,9 +34,5 @@ class TicketViewset(ModelViewSet):
     def get_queryset(self):
         return Ticket.objects.filter(event=self.kwargs['event_pk'])
 
-
     def perform_create(self, serializer):
-        serializer.save(
-            owner=self.request.user,
-            event_id=self.kwargs['event_pk']
-        )
+        serializer.save(owner=self.request.user, event_id=self.kwargs['event_pk'])

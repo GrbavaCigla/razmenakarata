@@ -2,7 +2,7 @@
   import { category } from "../stores/filter";
 </script>
 
-<div class="card card-compact bg-base-100">
+<div class="card shadow card-compact bg-base-100">
   <div class="card-body flex gap-4">
     <select class="select bg-base-200">
       <option value="grad">Grad</option>
