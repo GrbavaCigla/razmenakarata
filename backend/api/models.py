@@ -5,17 +5,17 @@ from django.contrib.auth.models import User
 class Event(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
-    location = models.CharField(max_length=64)
-    # TODO: Change this to proper date field
-    date = models.CharField(max_length=32)
-    category = models.CharField(max_length=16)
+    city = models.CharField(max_length=32)
+    location = models.CharField(max_length=64, null=True, blank=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
     thumbnail = models.URLField()
     page = models.URLField()
 
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
 
 
 class Ticket(models.Model):
@@ -29,4 +29,14 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-id']
+        ordering = ["-id"]
+
+
+class Package(models.Model):
+    name = models.CharField(max_length=64)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=16)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
