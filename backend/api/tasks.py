@@ -5,7 +5,7 @@ from huey import crontab
 from huey.contrib.djhuey import db_periodic_task
 from rest_framework.response import Response
 
-from .models import Event
+from .models import Event, Category, Package
 from .utils import parse_date
 
 
@@ -32,21 +32,22 @@ XPATHS = {
 
 # TODO: Make this run every hour instead of every minute
 # TODO: This is very error prone, add error handling
-@db_periodic_task(crontab(minute='*/5'))
+@db_periodic_task(crontab(minute='*'))
 def refresh_db():
     resp = requests.get(HOST)
     if not resp.ok:
         return Response(resp.text, status=resp.status_code)
 
     events = []
+    packages = []
+    categories = []
     doc = html.document_fromstring(resp.text)
     for i, element in enumerate(doc.xpath(XPATHS['grid'])):
         data = {}
         data['name'] = element.xpath(XPATHS['name'])[0]
         data['city'] = element.xpath(XPATHS['city'])[0]
         data['thumbnail'] = element.xpath(XPATHS['thumbnail'])[0]
-        # data['date'] = element.xpath(XPATHS['date'])[0]
-        # data['categories'] = element.xpath(XPATHS['categories'])
+        data['start_date'] = element.xpath(XPATHS['date'])[0]
         data['page'] = element.xpath(XPATHS['page'])[0]
 
         resp = requests.get(data['page'])
@@ -67,13 +68,18 @@ def refresh_db():
         except Exception:
             pass
 
-
-        # data['packages'] = [i.strip() for i in doc.xpath(XPATHS['packages'])]
         data['description'] = ' '.join(doc.xpath(XPATHS['description']))
 
-        events.append(Event(id=i, **data))
+        event = Event(id=i, **data)
+        packages += [Package(name=i.strip(), event=event) for i in doc.xpath(XPATHS['packages'])]
+        categories += [Category(name=i.strip(), event=event) for i in element.xpath(XPATHS['categories'])]
+        events.append(event)
     
     # TODO: Delete this delete
     Event.objects.all().delete()
+    Package.objects.all().delete()
+    Category.objects.all().delete()
 
     Event.objects.bulk_create(events)
+    Package.objects.bulk_create(packages)
+    Category.objects.bulk_create(categories)
