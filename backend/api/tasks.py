@@ -68,7 +68,7 @@ def refresh_db():
         except Exception:
             pass
 
-        data['description'] = ' '.join(doc.xpath(XPATHS['description']))
+        data['description'] = ' '.join(doc.xpath(XPATHS['description'])).replace('\n', ' ')
 
         event = Event(id=i, **data)
         packages += [Package(name=i.strip(), event=event) for i in doc.xpath(XPATHS['packages'])]
