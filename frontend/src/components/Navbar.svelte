@@ -10,7 +10,7 @@
     <SearchBar />
   </div>
   <div class="gap-4 hidden lg:flex">
-    <div class="btn btn-ghost">Ulogujte se</div>
+    <a class="btn btn-ghost" href="/login">Ulogujte se</a>
     <div class="btn btn-primary">Prodajte kartu</div>
   </div>
   <label for="main-drawer" class="btn btn-square btn-ghost lg:hidden">

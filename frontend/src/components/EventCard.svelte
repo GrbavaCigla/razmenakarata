@@ -1,11 +1,17 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
+
   export let id: string = "";
-  export let category: string = "";
+  export let categories: string[] = [];
   export let name: string = "";
   export let thumbnail: string = "";
   export let location: string = "";
+  export let city: string = "";
   export let description: string = "";
-  export let date: string = "";
+  export let start_date: string = "";
+
+  let date: string = Intl.DateTimeFormat('sr-RS').format(new Date(start_date));
 </script>
 
 <div
@@ -22,7 +28,9 @@
   </figure>
   <div class="card-body justify-between">
     <div>
-      <span class="badge mb-1">{category}</span>
+      {#each categories as categ}
+        <span class="badge mb-1 mr-1">{categ}</span>
+      {/each}
       <div class="card-title">
         <a href="/{id}/">
           {name}
@@ -30,7 +38,7 @@
       </div>
     </div>
     <div class="font-black text-neutral flex justify-between items-end">
-      <span>{location}</span>
+      <span>{city}</span>
       <span>{date}</span>
     </div>
   </div>
