@@ -27,7 +27,6 @@ class EventViewset(ReadOnlyModelViewSet):
 
 
 class TicketViewset(ModelViewSet):
-    queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
