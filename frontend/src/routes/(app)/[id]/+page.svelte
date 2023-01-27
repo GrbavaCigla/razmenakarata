@@ -1,17 +1,11 @@
 <script lang="ts">
+  import EventDescriptionCard from "../../../components/EventDescriptionCard.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
 </script>
 
-<div class="bg-base-100 card xl:card-side shadow">
-  <img src="{data.event.thumbnail}" class="rounded-t-box xl:rounded-l-box xl:w-96 object-cover" alt="" />
-  <div class="card-body">
-    <h2 class="card-title">{data.event.name}</h2>
-    <!-- TODO: Collapse because on mobile this is too long -->
-    <p>{data.event.description}</p>
-  </div>
-</div>
+<EventDescriptionCard {...data.event} />
 
 <div class="shadow rounded-box p-2 bg-base-100">
   <div class="overflow-auto">
@@ -41,9 +35,7 @@
             <td>{ticket.price}</td>
             <td>{ticket.owner}</td>
             <td>
-              <button class="btn btn-sm btn-secondary">
-                Kupi
-              </button>
+              <button class="btn btn-sm btn-secondary"> Kupi </button>
             </td>
           </tr>
         {/each}
