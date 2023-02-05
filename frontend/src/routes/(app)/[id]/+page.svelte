@@ -1,5 +1,5 @@
 <script lang="ts">
-  import EventDescriptionCard from "../../../components/EventDescriptionCard.svelte";
+  import EventDescriptionCard from "$components/EventDescriptionCard.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
