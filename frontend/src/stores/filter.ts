@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
-export const search = writable("");
-export const category = writable("");
+export const search: Writable<string> = writable("");
+export const category: Writable<string> = writable("");

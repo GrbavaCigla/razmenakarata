@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { search } from "../stores/filter";
+  import { search } from "$stores/filter";
 </script>
 
 <div class="relative font-bold">

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { category } from "../stores/filter";
+  import { category } from "$stores/filter";
 </script>
 
 <div class="card shadow card-compact bg-base-100">

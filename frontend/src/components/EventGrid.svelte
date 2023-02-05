@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { search, category } from "../stores/filter";
+  import { search, category } from "$stores/filter";
   import fuzzysort from "fuzzysort";
   import EventCard from "./EventCard.svelte";
 
