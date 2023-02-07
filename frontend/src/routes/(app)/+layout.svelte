@@ -1,6 +1,9 @@
 <script>
-  import Navbar from "../../components/Navbar.svelte";
-  import Sidebar from "../../components/Sidebar.svelte";
+  import Navbar from "$components/Navbar.svelte";
+  import Sidebar from "$components/Sidebar.svelte";
+  import LoginLinkButton from "$src/components/LoginLinkButton.svelte";
+  import Alert from "$components/Alert.svelte";
+  import { notifications } from "$stores/notification";
 </script>
 
 <div class="drawer">
@@ -10,6 +13,11 @@
       <div class="sticky top-4 z-20 w-full">
         <Navbar />
       </div>
+
+      {#each $notifications as notif}
+        <!-- TODO: Wire on:click to delete current notification -->
+        <Alert title="{notif}" />
+      {/each}
 
       <slot />
 
@@ -25,8 +33,8 @@
     <ul class="menu gap-2 p-4 w-80 bg-base-100">
       <Sidebar />
       <div class="divider my-0"></div>
-      <div class="btn btn-ghost">Ulogujte se</div>
-      <div class="btn btn-primary">Prodajte kartu</div>
+      <LoginLinkButton />
+      <button class="btn btn-primary"> Prodajte kartu </button>
     </ul>
   </div>
 </div>

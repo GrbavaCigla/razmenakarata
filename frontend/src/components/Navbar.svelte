@@ -1,5 +1,6 @@
 <script lang="ts">
   import SearchBar from "./SearchBar.svelte";
+  import LoginLinkButton from "$components/LoginLinkButton.svelte";
 </script>
 
 <div
@@ -9,9 +10,9 @@
   <div class="lg:basis-2/5 lg:mx-8 w-full">
     <SearchBar />
   </div>
-  <div class="gap-4 hidden lg:flex">
-    <a class="btn btn-ghost" href="/login">Ulogujte se</a>
-    <div class="btn btn-primary">Prodajte kartu</div>
+  <div class="gap-4 hidden lg:flex items-center">
+    <LoginLinkButton />
+    <button class="btn btn-primary">Prodajte kartu</button>
   </div>
   <label for="main-drawer" class="btn btn-square btn-ghost lg:hidden">
     <svg
