@@ -15,7 +15,7 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["start_date"]
 
 
 class Ticket(models.Model):
@@ -29,7 +29,7 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["price"]
 
 
 class Package(models.Model):
