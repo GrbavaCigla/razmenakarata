@@ -18,6 +18,7 @@
   class="card card-compact shadow md:hover:scale-105 z-10 bg-base-100 transition-all"
 >
   <figure>
+    <!-- TODO: Image should not resize on load -->
     <img
       src="{thumbnail}"
       class="w-full"

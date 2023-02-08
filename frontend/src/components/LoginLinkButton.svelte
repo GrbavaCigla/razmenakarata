@@ -1,6 +1,5 @@
 <script lang="ts">
   import { access_token } from "$stores/auth";
-
 </script>
 
 <!-- TODO: This check apparently doesn't work -->
