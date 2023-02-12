@@ -13,8 +13,13 @@ django-cors-headers = "*"
 huey = "*"
 djangorestframework-simplejwt = "*"
 drf-nested-routers = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+redis = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
+
+[scripts]

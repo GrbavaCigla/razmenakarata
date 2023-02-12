@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
+from django.core.management.utils import get_random_secret_key  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,8 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# TODO: Use dotenv instead
-SECRET_KEY = 'django-insecure-79)yta5xk9th@zliow*+rpt%s$-(#s13in9&#j*5un5%_-(zl%'
+SECRET_KEY = environ.get('SECRET_KEY', get_random_secret_key)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,12 +81,22 @@ WSGI_APPLICATION = 'razmenakarata.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': environ.get('POSTGRES_HOST', 'localhost'),
+        'NAME': environ.get('POSTGRES_NAME', 'postgres'),
+        'USER': environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'PORT': int(environ.get('POSTGRES_PORT', 5432)),
+    },
 }
+DATABASES = {'default': DATABASES[environ.get('DJANGO_DB', 'sqlite')]}
 
 
 # Password validation
@@ -123,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -134,12 +146,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
+        # TODO: Use environment variables for this
+        'LOCATION': 'redis://' + environ.get('REDIS_HOST', '127.0.0.1:6379'),
     }
 }
 
 HUEY = {
-    'immediate': False
+    'huey_class': 'huey.RedisHuey',
+    'immediate': False,
+    'connection': {
+        'url': 'redis://' + environ.get('REDIS_HOST', '127.0.0.1:6379')
+    }
 }
 
 REST_FRAMEWORK = {

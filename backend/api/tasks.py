@@ -32,7 +32,7 @@ XPATHS = {
 
 # TODO: Make this run every hour instead of every minute
 # TODO: This is very error prone, add error handling
-@db_periodic_task(crontab(minute='*'))
+@db_periodic_task(crontab(minute='*/10'))
 def refresh_db():
     resp = requests.get(HOST)
     if not resp.ok:
