@@ -1,0 +1,73 @@
+version: '2'
+
+services:
+    nginx:
+        restart: always
+        image: nginx:1.23-alpine
+        ports:
+            - 8000:80
+        volumes:
+            - ./docker/nginx/:/etc/nginx/conf.d/
+            - static_volume:/app/backend/static
+    server:
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/backend/Dockerfile
+        entrypoint: /app/docker/backend/server-entrypoint.sh
+        volumes:
+            - static_volume:/app/backend/static
+        expose:
+            - 8000
+        environment:
+            DEBUG: "True"
+            DJANGO_DB: postgresql
+            REDIS_HOST: redis
+            POSTGRES_HOST: db
+            POSTGRES_NAME: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_PORT: 5432
+        depends_on:
+            - db
+            - redis
+    worker:
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./docker/backend/Dockerfile
+        entrypoint: /app/docker/backend/worker-entrypoint.sh
+        volumes:
+            - static_volume:/app/backend/static
+        environment:
+            DEBUG: "True"
+            DJANGO_DB: postgresql
+            REDIS_HOST: redis
+            POSTGRES_HOST: db
+            POSTGRES_NAME: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_PORT: 5432
+        depends_on:
+            - server
+            - redis
+    redis:
+        restart: unless-stopped
+        image: redis:7.0.8-alpine 
+        expose:
+            - 6379
+    db:
+        image: postgres:15.2-alpine
+        restart: unless-stopped
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        expose:
+            - 5432
+    
+volumes:
+    static_volume: {}
+    postgres_data: {}
