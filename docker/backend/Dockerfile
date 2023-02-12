@@ -1,17 +1,14 @@
 FROM python:3.11-alpine
 
-ENV WORKDIR /app
+WORKDIR /app
 
-RUN mkdir $WORKDIR
-WORKDIR $WORKDIR
+COPY ./backend/ .
 
-ADD ./backend/ $WORKDIR/backend
-
-# Python
+# Packages
 RUN pip3 install -U pip
-RUN pip3 install -r backend/requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Entry points
-ADD ./docker/ $WORKDIR/docker
-RUN chmod +x $WORKDIR/docker/backend/server-entrypoint.sh
-RUN chmod +x $WORKDIR/docker/backend/worker-entrypoint.sh
+COPY ./docker/backend ./docker
+RUN chmod +x ./docker/server-entrypoint.sh
+RUN chmod +x ./docker/worker-entrypoint.sh

@@ -1,15 +1,12 @@
-FROM python:3.11.2-alpine
+FROM node:19.6-alpine
 
-ENV WORKDIR /app
+WORKDIR /app
 
-RUN mkdir $WORKDIR
-WORKDIR $WORKDIR
-
-# Frontend
-ADD ./frontend/ $WORKDIR/frontend
-RUN cd frontend && npm install
-RUN cd frontend && npm run build --production
+# Packages
+COPY ./frontend/ .
+RUN npm install
+RUN npm run build --production
 
 # Entry points
-ADD ./docker/ $WORKDIR/docker
-RUN chmod +x $WORKDIR/docker/frontend-entrypoint.sh
+COPY ./docker/frontend ./docker
+RUN chmod +x ./docker/frontend-entrypoint.sh

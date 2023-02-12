@@ -8,15 +8,15 @@ services:
             - 8000:80
         volumes:
             - ./docker/nginx/:/etc/nginx/conf.d/
-            - static_volume:/app/backend/static
-    server:
+            - static_volume:/app/static
+    backend:
         restart: unless-stopped
         build:
             context: .
             dockerfile: ./docker/backend/Dockerfile
-        entrypoint: /app/docker/backend/server-entrypoint.sh
+        entrypoint: /app/docker/server-entrypoint.sh
         volumes:
-            - static_volume:/app/backend/static
+            - static_volume:/app/static
         expose:
             - 8000
         environment:
@@ -36,9 +36,9 @@ services:
         build:
             context: .
             dockerfile: ./docker/backend/Dockerfile
-        entrypoint: /app/docker/backend/worker-entrypoint.sh
+        entrypoint: /app/docker/worker-entrypoint.sh
         volumes:
-            - static_volume:/app/backend/static
+            - static_volume:/app/static
         environment:
             DEBUG: "True"
             DJANGO_DB: postgresql
