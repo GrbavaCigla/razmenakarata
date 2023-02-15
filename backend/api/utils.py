@@ -1,7 +1,7 @@
 from typing import List
-from re import match
+from re import findall
 
-DATE_REGEX = r'(\d{1,2})\.\s(\w+)\s(\d{4})\.\s(\d{2}:\d{2})'
+DATE_REGEX = r'(\d{1,2})\.\s(\w+)\s(\d{4})\.\s*(\d{2}\.\d{2})*'
 MONTHS = {
     'januara': 1,
     'februara': 2,
@@ -19,7 +19,7 @@ MONTHS = {
 
 
 def parse_date(text: str):
-    grps = match(DATE_REGEX, text).groups()
+    grps = findall(DATE_REGEX, text)[0]
     day = str(grps[0]).rjust(2, '0')
     month = str(MONTHS[grps[1]]).rjust(2, '0')
     year = grps[2]
