@@ -10,12 +10,14 @@
   export let city: string = "";
   export let description: string = "";
   export let start_date: string = "";
+  export let end_date: string = "";
+  export let packages: string = "";
 
   let date: string = Intl.DateTimeFormat('sr-RS').format(new Date(start_date));
 </script>
 
 <div
-  class="card card-compact shadow md:hover:scale-105 z-10 bg-base-100 transition-all"
+  class="card card-compact shadow md:hover:-translate-y-1 z-10 bg-base-100 transition-all"
 >
   <figure>
     <!-- TODO: Image should not resize on load -->

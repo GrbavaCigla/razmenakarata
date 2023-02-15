@@ -9,10 +9,6 @@
     $access_token = null;
     $refresh_token = null;
   }
-
-  onMount(() => {
-    console.log($access_token);
-  })
 </script>
 
 <!-- TODO: $access_token loads too late -->
@@ -39,5 +35,5 @@
       <li><a href="/account">Moj nalog</a></li>
     </ul>
   </div>
-  <!-- <a class="btn btn-ghost lg:hidden" href="/account">Nalog</a> -->
+  <a class="btn btn-ghost lg:hidden" href="/account">Nalog</a>
 {/if}

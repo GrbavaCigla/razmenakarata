@@ -34,9 +34,11 @@ class Ticket(models.Model):
 
 class Package(models.Model):
     name = models.CharField(max_length=64)
-    event = models.ForeignKey(Event, related_name='packages', on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name="packages", on_delete=models.CASCADE)
 
 
 class Category(models.Model):
     name = models.CharField(max_length=16)
-    event = models.ForeignKey(Event, related_name='categories', on_delete=models.CASCADE)
+    event = models.ForeignKey(
+        Event, related_name="categories", on_delete=models.CASCADE
+    )

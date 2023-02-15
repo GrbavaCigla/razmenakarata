@@ -18,8 +18,8 @@
     error = _error;
 
     if (body != null) {
-      $access_token = body.access_token;
-      $refresh_token = body.refresh_token;
+      $access_token = body.access;
+      $refresh_token = body.refresh;
 
       dispatch("success");
     }

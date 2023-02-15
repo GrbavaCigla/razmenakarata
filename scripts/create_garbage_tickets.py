@@ -8,7 +8,7 @@ resp = post(HOST + '/api/v1/token/', data={
 })
 token = resp.json()['access']
 
-count = len(get(HOST + '/api/v1/events/').json())
+count = len(get(HOST + '/api/v1/events/').json()["results"])
 
 for i in range(count):
     resp = post(
