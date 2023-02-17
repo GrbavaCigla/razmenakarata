@@ -20,13 +20,13 @@
   class="card card-compact shadow md:hover:-translate-y-1 z-10 bg-base-100 transition-all"
 >
   <figure>
-    <!-- TODO: Image should not resize on load -->
+    <!-- TODO: Add backend option to get images in different sizes -->
     <img
       src="{thumbnail}"
       class="w-full"
       alt="thumbnail"
-      width="280"
-      height="140"
+      width="800"
+      height="579"
     />
   </figure>
   <div class="card-body justify-between">
