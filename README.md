@@ -65,6 +65,7 @@ List of environment variables:
 | `POSTGRES_PORT`     | 5432           |
 | `DJANGO_DB`         | sqlite         |
 | `REDIS_HOST`        | 127.0.0.1:6379 |
+| `DJANGO_DEBUG`      | True           |
 
 Before starting backend, start redis with `redis-server` command.
 ### Backend

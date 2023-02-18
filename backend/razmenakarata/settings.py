@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get("DJANGO_DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "api",
     "rest_framework",
+    "sorl.thumbnail",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
+# TODO: Remove this when migrating to CDN
+MEDIA_URL = "media/"
+MEDIA_ROOT = "/tmp/media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -170,6 +174,11 @@ REST_FRAMEWORK = {
     # TODO: Derive and make custom pagination with max_limit
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
-    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata',
+    "DEFAULT_METADATA_CLASS": "rest_framework.metadata.SimpleMetadata",
     "PAGE_SIZE": 100,
 }
+
+THUMBNAIL_DEBUG = DEBUG
+THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
+THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
+THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")

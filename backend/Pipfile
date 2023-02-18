@@ -16,6 +16,8 @@ drf-nested-routers = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 redis = "*"
+sorl-thumbnail = "*"
+pillow = "*"
 
 [dev-packages]
 

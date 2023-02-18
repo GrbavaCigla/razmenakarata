@@ -22,11 +22,11 @@
   <figure>
     <!-- TODO: Add backend option to get images in different sizes -->
     <img
-      src="{thumbnail}"
+      src="{thumbnail}?width=200&height=144"
       class="w-full"
       alt="thumbnail"
-      width="800"
-      height="579"
+      width="200"
+      height="144"
     />
   </figure>
   <div class="card-body justify-between">

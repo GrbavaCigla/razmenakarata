@@ -1,6 +1,4 @@
-import requests
-
-from django.http import StreamingHttpResponse
+from django.http import HttpResponse
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.renderers import StaticHTMLRenderer
@@ -15,20 +13,13 @@ from .serializers import EventSerializer, TicketSerializer
 class EventViewset(ReadOnlyModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    # TODO: For some reason this ignores Serializer excludes
-    filterset_fields = "__all__"
-    search_fields = ['name', 'description']
-    ordering_fields = "__all__"
+    filterset_fields = ["city", "location", "start_date", "end_date"]
+    search_fields = ["name", "description"]
+    ordering_fields = ["start_date", "end_date", "name"]
 
     @action(detail=True, renderer_classes=[StaticHTMLRenderer])
     def thumbnail(self, request, pk):
-        response = requests.get(Event.objects.get(pk=pk).thumbnail, stream=True)
-        return StreamingHttpResponse(
-            response.raw,
-            content_type=response.headers.get("content-type"),
-            status=response.status_code,
-            reason=response.reason,
-        )
+        return HttpResponse(Event.objects.get(pk=pk).thumbnail)
 
 
 class TicketViewset(ModelViewSet):

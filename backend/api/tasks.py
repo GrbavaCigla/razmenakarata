@@ -1,6 +1,8 @@
 import requests
 from lxml import html
+from io import BytesIO
 
+from django.core.files import File
 from huey import crontab
 from huey.contrib.djhuey import db_periodic_task
 from rest_framework.response import Response
@@ -29,6 +31,7 @@ XPATHS = {
 }
 
 
+# TODO: Please refactor this
 # TODO: Make this run every hour instead of every minute
 # TODO: This is very error prone, add error handling
 @db_periodic_task(crontab(minute="*/10"))
@@ -45,9 +48,9 @@ def refresh_db():
         data = {}
         data["name"] = element.xpath(XPATHS["name"])[0]
         data["city"] = element.xpath(XPATHS["city"])[0]
-        data["thumbnail"] = element.xpath(XPATHS["thumbnail"])[0]
         data["start_date"] = element.xpath(XPATHS["date"])[0]
         data["page"] = element.xpath(XPATHS["page"])[0]
+        thumbnail = element.xpath(XPATHS["thumbnail"])[0]
 
         resp = requests.get(data["page"])
         if not resp.ok:
@@ -78,6 +81,10 @@ def refresh_db():
         )
 
         event = Event(id=i, **data)
+
+        resp = requests.get(thumbnail)
+        event.thumbnail = File(BytesIO(resp.content))
+
         packages += [
             Package(name=i.strip(), event=event) for i in doc.xpath(XPATHS["packages"])
         ]

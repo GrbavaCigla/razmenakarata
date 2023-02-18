@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from sorl.thumbnail import ImageField
+
 
 class Event(models.Model):
     name = models.CharField(max_length=64)
@@ -9,7 +11,7 @@ class Event(models.Model):
     location = models.CharField(max_length=64, null=True, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True, blank=True)
-    thumbnail = models.URLField()
+    thumbnail = ImageField(upload_to="event/thumbnail")
     page = models.URLField()
 
     created = models.DateTimeField(auto_now_add=True)
