@@ -83,7 +83,7 @@ def refresh_db():
         event = Event(id=i, **data)
 
         resp = requests.get(thumbnail)
-        event.thumbnail = File(BytesIO(resp.content))
+        event.thumbnail = File(BytesIO(resp.content), name=str(hash(thumbnail)))
 
         packages += [
             Package(name=i.strip(), event=event) for i in doc.xpath(XPATHS["packages"])
