@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { search, category } from "$stores/filter";
+  import { search, category, city } from "$stores/filter";
   import fuzzysort from "fuzzysort";
   import EventCard from "./EventCard.svelte";
 
@@ -9,8 +8,10 @@
   // TODO: Optimize this using fuzzysort.prepare
   $: filtered = fuzzysort
     .go($search, events, { key: "name", all: true })
-    .map(x => x.obj)
-    .filter(x => $category == "" ? true : x.category == $category)
+    .map((x) => x.obj)
+    .filter((x) => ($category == "" ? true : x.categories.includes($category)))
+    .filter((x) => ($city == "" ? true : x.city == $city));
+
 </script>
 
 <!-- <div class="rounded-box shadow bg-base-100 p-4 w-full h-full"> -->
