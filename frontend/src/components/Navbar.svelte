@@ -6,7 +6,7 @@
 <div
   class="rounded-box justify-between shadow bg-base-100 p-4 gap-4 flex w-full items-center"
 >
-  <h1 class="text-2xl font-bold hidden sm:block"><a href="/">Logo</a></h1>
+  <a href="/" class="logo hidden mx-4 sm:block">rk</a>
   <div class="lg:basis-2/5 lg:mx-8 w-full">
     <SearchBar />
   </div>

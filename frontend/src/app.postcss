@@ -1,14 +1,28 @@
 /* Write your global styles here, in PostCSS syntax */
+@import "@fontsource/righteous";
+@import "@fontsource/cabin/latin-ext.css";
+@import "@fontsource/cabin/latin.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+    * {
+        font-family: "Cabin";
+    }
+
     html, body {
         @apply h-full;
     }
 
     table th:first-child {
         position: static !important;
+    }
+}
+@layer components {
+    .logo {
+        @apply text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary;
+        font-family: "Righteous";
     }
 }
