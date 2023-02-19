@@ -12,7 +12,7 @@
   </div>
   <div class="gap-4 hidden lg:flex items-center">
     <LoginLinkButton />
-    <button class="btn btn-primary">Prodajte kartu</button>
+    <a class="btn btn-primary" href="/create-ticket">Prodajte kartu</a>
   </div>
   <label for="main-drawer" class="btn btn-square btn-ghost lg:hidden">
     <svg
