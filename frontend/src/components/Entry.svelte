@@ -3,13 +3,14 @@
   export let placeholder: string | null;
   export let value: string = "";
   export let errors: string[] = [];
+  export let error: boolean = false;
   export let type: string = "text";
 
   function type_action(node: any) {
     node.type = type;
   }
 
-  $: is_error = errors.length != 0;
+  $: is_error = errors.length != 0 || error;
 </script>
 
 <div>

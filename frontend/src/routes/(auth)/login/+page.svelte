@@ -5,7 +5,7 @@
 </script>
 
 <!-- TODO: Break this down to components -->
-<h1 class="font-bold text-4xl mb-4">Logo</h1>
+<h1 class="logo text-6xl">rk</h1>
 <LoginCard
   on:success="{() => {
     $notifications = [

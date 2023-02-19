@@ -3,16 +3,20 @@
   import { login, type ErrorDisplay } from "$utils/auth/login";
   import { access_token, refresh_token } from "$stores/auth";
   import Entry from "$components/Entry.svelte";
-  import ModeButton from "$components/ModeButton.svelte";
 
   const dispatch = createEventDispatcher();
 
-  let is_login: boolean;
+  let is_login: boolean = true;
   let username: string;
   let password: string;
   let error: ErrorDisplay = { username: [], password: [], detail: null };
 
-  async function onlogin() {
+  async function on_submit(value: boolean) {
+    if (value != is_login) {
+      is_login = value;
+      return;
+    }
+
     const [body, _error] = await login(username, password);
 
     error = _error;
@@ -26,8 +30,13 @@
   }
 </script>
 
+<!-- TODO: Translate error messages -->
 <div class="bg-base-100 rounded-box sm:shadow max-w-lg w-full p-8">
-  <form method="POST" class="flex flex-col gap-4" on:submit|preventDefault="{onlogin}">
+  <form
+    method="POST"
+    class="flex flex-col gap-4"
+    on:submit|preventDefault
+  >
     <span class="text-3xl font-bold text-center">
       {#if is_login}
         Ulogujte se
@@ -40,6 +49,7 @@
       name="username"
       placeholder="Username"
       errors="{error.username}"
+      error="{error.detail != null}"
       bind:value="{username}"
     />
 
@@ -48,10 +58,30 @@
       name="password"
       placeholder="Password"
       errors="{error.password}"
+      error="{error.detail != null}"
       bind:value="{password}"
     />
 
-    <ModeButton bind:is_login />
-    <!-- TODO: Add error detail -->
+    <div class="flex btn-group no-animation">
+      <input
+        type="submit"
+        on:click="{() => (on_submit(true))}"
+        class="btn transition-all"
+        class:btn-primary="{is_login}"
+        class:flex-1="{is_login}"
+        value="Ulogujte se"
+      />
+      <input
+        type="submit"
+        on:click="{() => (on_submit(false))}"
+        class="btn transition-all"
+        class:btn-primary="{!is_login}"
+        class:flex-1="{!is_login}"
+        value="Registrujte se"
+      />
+    </div>
+    {#if error.detail != null}
+      <p class="text-error">{error.detail}</p>
+    {/if}
   </form>
 </div>
