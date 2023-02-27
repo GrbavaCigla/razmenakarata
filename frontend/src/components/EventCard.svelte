@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
-
   export let id: string = "";
   export let categories: string[] = [];
   export let name: string = "";
