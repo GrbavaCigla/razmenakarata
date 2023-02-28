@@ -25,7 +25,7 @@
       </div>
     </div>
   {:else}
-    <div class="gap-4 grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] ">
+    <div class="gap-4 grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))]">
       {#each filtered as event}
         <EventCard {...event} />
       {/each}
