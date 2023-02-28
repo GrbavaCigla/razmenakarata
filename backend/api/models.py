@@ -1,7 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 from sorl.thumbnail import ImageField
+
+
+class User(AbstractUser):
+    pass
+
+    class Meta(AbstractUser.Meta):
+        swappable = "AUTH_USER_MODEL"
 
 
 class Event(models.Model):
