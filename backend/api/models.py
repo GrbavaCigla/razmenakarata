@@ -1,14 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
 from sorl.thumbnail import ImageField
 
 
 class User(AbstractUser):
     pass
-
-    class Meta(AbstractUser.Meta):
-        swappable = "AUTH_USER_MODEL"
 
 
 class Event(models.Model):
@@ -28,12 +26,12 @@ class Event(models.Model):
 
 
 class Ticket(models.Model):
-    price = models.FloatField()
+    price = models.PositiveIntegerField()
     event = models.ForeignKey(Event, models.CASCADE)
     amount = models.PositiveSmallIntegerField(default=1)
     online = models.BooleanField()
     package = models.CharField(max_length=128)
-    owner = models.ForeignKey(User, models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
 
