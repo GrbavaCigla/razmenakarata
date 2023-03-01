@@ -1,6 +1,6 @@
 <script lang="ts">
   import EventDescriptionCard from "$components/EventDescriptionCard.svelte";
-  import Scaffold from "$src/components/Scaffold.svelte";
+  import Scaffold from "$components/Scaffold.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;

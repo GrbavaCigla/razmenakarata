@@ -2,7 +2,7 @@
   import EventGrid from "$components/EventGrid.svelte";
   import Sidebar from "$components/Sidebar.svelte";
   import type { PageData } from "./$types";
-  import Scaffold from "$src/components/Scaffold.svelte";
+  import Scaffold from "$components/Scaffold.svelte";
 
   export let data: PageData;
 

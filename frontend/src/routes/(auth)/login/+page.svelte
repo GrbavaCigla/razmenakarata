@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import LoginCard from "$src/components/LoginCard.svelte";
+  import LoginCard from "$components/LoginCard.svelte";
   import { notifications } from "$stores/notification";
 </script>
 

@@ -21,7 +21,7 @@ const config = {
 			$components: path.resolve('./src/components'),
 			$stores: path.resolve('./src/stores'),
 			$routes: path.resolve('./src/routes'),
-			$utils: path.resolve('./src/utils'),
+			$api: path.resolve('./src/api'),
 		}
   },
 };
