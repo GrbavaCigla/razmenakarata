@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import { login, type ErrorDisplay } from "$utils/auth/login";
+  import { login, type ErrorDisplay } from "$api/login";
   import { access_token, refresh_token } from "$stores/auth";
   import Entry from "$components/Entry.svelte";
 
