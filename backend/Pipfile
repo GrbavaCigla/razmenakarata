@@ -18,6 +18,8 @@ psycopg2-binary = "*"
 redis = "*"
 sorl-thumbnail = "*"
 pillow = "*"
+drf-spectacular = "*"
+drf-standardized-errors = {extras = ["openapi"], version = "*"}
 
 [dev-packages]
 

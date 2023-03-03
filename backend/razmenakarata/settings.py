@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "sorl.thumbnail",
+    "drf_spectacular",
+    "drf_standardized_errors"
 ]
 
 MIDDLEWARE = [
@@ -171,8 +173,11 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ),
+    # TODO: Enable this
+    # "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
     # TODO: Derive and make custom pagination with max_limit
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
     "DEFAULT_METADATA_CLASS": "rest_framework.metadata.SimpleMetadata",
     "PAGE_SIZE": 100,
@@ -184,3 +189,10 @@ THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
 THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 
 AUTH_USER_MODEL = "api.User"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "RazmenaKarata",
+    "DESCRIPTION": "Platform to exchange concert/event tickets.",
+    "VERSION": "0.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
