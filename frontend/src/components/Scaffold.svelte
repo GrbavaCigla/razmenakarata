@@ -1,9 +1,17 @@
-<script>
+<script lang="ts">
   import Navbar from "$components/Navbar.svelte";
   import LoginLinkButton from "$components/LoginLinkButton.svelte";
   import Alert from "$components/Alert.svelte";
   import { notifications } from "$stores/notification";
   import { theme } from "$stores/theme";
+
+  function remove_notification(title: string) {
+    var index = $notifications.indexOf(title);
+    if (index > -1) {
+      $notifications.splice(index, 1);
+      $notifications = $notifications;
+    }
+  }
 </script>
 
 <div class="drawer">
@@ -16,18 +24,20 @@
 
       {#each $notifications as notif}
         <!-- TODO: Wire on:click to delete current notification -->
-        <Alert title="{notif}" />
+        <Alert title="{notif}" on:click="{remove_notification(notif)}" />
       {/each}
 
       <slot />
 
-      <footer class="shadow mt-auto rounded-box p-4 bg-base-100 flex justify-between">
+      <footer
+        class="shadow mt-auto rounded-box p-4 bg-base-100 flex justify-between"
+      >
         <!-- TODO: Add logo -->
         <p>Copyright © 2023 - All right reserved</p>
         <div class="flex gap-2">
           <p>Tamna tema</p>
           <!-- TODO: Connect to data-theme -->
-          <input type="checkbox" class="toggle" bind:value="{$theme}">
+          <input type="checkbox" class="toggle" bind:value="{$theme}" />
         </div>
       </footer>
     </div>
