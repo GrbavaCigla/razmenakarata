@@ -1,3 +1,4 @@
+// TODO: Add error handling
 export async function create_ticket(
   event_id: number,
   package_name: string,

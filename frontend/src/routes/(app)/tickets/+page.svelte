@@ -3,7 +3,9 @@
   import { create_ticket } from "$api/ticket";
   import FormTile from "$components/FormTile.svelte";
   import type { PageData } from "./$types";
-  import { access_token } from "$src/stores/auth";
+  import { access_token } from "$stores/auth";
+  import { notifications } from "$stores/notification";
+  import { goto } from "$app/navigation";
 
   export let data: PageData;
 
@@ -25,6 +27,11 @@
 
   function on_submit() {
     create_ticket(selected_event_id, selected_ticket, is_online, price, $access_token);
+    $notifications = [
+      ...$notifications,
+      "Uspešno ste objavili kartu za prodaju.",
+    ];
+    goto("/");
   }
 </script>
 
