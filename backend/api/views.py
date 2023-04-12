@@ -1,13 +1,14 @@
 from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.decorators import action
-from rest_framework.filters import OrderingFilter
+from rest_framework.generics import RetrieveAPIView
 
 from .models import Event, Ticket
 from .permissions import IsOwnerOrReadOnly
-from .serializers import EventSerializer, TicketSerializer
+from .serializers import EventSerializer, TicketSerializer, UserSerializer
 
 
 class EventViewset(ReadOnlyModelViewSet):
@@ -31,3 +32,8 @@ class TicketViewset(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, event_id=self.kwargs["event_pk"])
+
+
+class UserDetail(RetrieveAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer

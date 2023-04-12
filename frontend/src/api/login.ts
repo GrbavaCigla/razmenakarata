@@ -8,7 +8,7 @@ export async function login(
   username: string,
   password: string
 ): Promise<[body: any, error: ErrorDisplay]> {
-  const resp = await fetch("http://127.0.0.1:8000/api/v1/token/", {
+  const resp = await fetch("http://127.0.0.1:8000/api/v1/auth/token/", {
     method: "POST",
 		headers: {
 			"Content-Type": "application/json"

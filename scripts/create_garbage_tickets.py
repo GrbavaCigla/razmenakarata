@@ -2,7 +2,7 @@ from requests import post, get
 
 HOST = 'http://127.0.0.1:8000'
 
-resp = post(HOST + '/api/v1/token/', data={
+resp = post(HOST + '/api/v1/auth/token/', data={
     'username': 'test',
     'password': 'test'
 })

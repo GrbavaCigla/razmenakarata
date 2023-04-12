@@ -6,7 +6,7 @@ from sorl.thumbnail import ImageField
 
 
 class User(AbstractUser):
-    pass
+    email_confirmed = models.BooleanField(default=False)
 
 
 class Event(models.Model):

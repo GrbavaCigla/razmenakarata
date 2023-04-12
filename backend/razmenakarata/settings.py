@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from os import environ
 from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +46,8 @@ INSTALLED_APPS = [
     "huey.contrib.djhuey",
     "rest_framework_simplejwt",
     "corsheaders",
-    "api",
+    "api.apps.ApiConfig",
+    "auth.apps.AuthConfig",
     "rest_framework",
     "sorl.thumbnail",
     "drf_spectacular",
@@ -141,7 +145,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 # TODO: Remove this when migrating to CDN
 MEDIA_URL = "media/"
-MEDIA_ROOT = "/tmp/media"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -188,7 +192,7 @@ THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
 THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
 THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 
-AUTH_USER_MODEL = "api.User"
+AUTH_USER_MODEL = "rk_api.User"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "RazmenaKarata",
@@ -196,3 +200,10 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "0.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = environ.get("EMAIL_HOST")
+EMAIL_PORT = int(environ.get("EMAIL_PORT", 587))
+EMAIL_HOST_USER = environ.get("EMAIL_USER")
+EMAIL_HOST_PASSWORD = environ.get("EMAIL_PASSWORD")
