@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     "huey.contrib.djhuey",
     "rest_framework_simplejwt",
     "corsheaders",
-    "api.apps.ApiConfig",
-    "auth.apps.AuthConfig",
+    "api",
     "rest_framework",
     "sorl.thumbnail",
     "drf_spectacular",
-    "drf_standardized_errors"
+    "drf_standardized_errors",
+    "djoser"
 ]
 
 MIDDLEWARE = [
@@ -192,7 +192,7 @@ THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
 THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
 THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 
-AUTH_USER_MODEL = "rk_api.User"
+AUTH_USER_MODEL = "api.User"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "RazmenaKarata",
@@ -207,3 +207,8 @@ EMAIL_HOST = environ.get("EMAIL_HOST")
 EMAIL_PORT = int(environ.get("EMAIL_PORT", 587))
 EMAIL_HOST_USER = environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = environ.get("EMAIL_PASSWORD")
+
+SIMPLE_JWT = {
+   "AUTH_HEADER_TYPES": ("JWT",),
+}
+# TODO: Set djoser SEND_ACTIVATION_EMAIL to true

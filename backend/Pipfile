@@ -21,6 +21,7 @@ pillow = "*"
 drf-spectacular = "*"
 drf-standardized-errors = {extras = ["openapi"], version = "*"}
 python-dotenv = "*"
+djoser = "*"
 
 [dev-packages]
 
