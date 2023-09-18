@@ -4,6 +4,10 @@
   import { access_token, refresh_token } from "$stores/auth";
   import { onMount } from "svelte";
 
+  let loading = true;
+
+  onMount(() => loading = false);
+
   function logout() {
     $notifications = [...$notifications, "Uspešno ste se izlogovali sa Vašeg naloga."];
     $access_token = null;
@@ -11,8 +15,9 @@
   }
 </script>
 
-<!-- TODO: $access_token loads too late -->
-{#if $access_token == null}
+{#if loading }
+  <span class="btn btn-square btn-ghost loading"></span>
+{:else if $access_token == null}
   <a class="btn btn-ghost" href="/login">Ulogujte se</a>
 {:else}
   <div class="dropdown dropdown-end hidden lg:inline-block">
