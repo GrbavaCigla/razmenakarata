@@ -1,0 +1,6 @@
+LICENSE
+README.md
+compose.yml
+Dockerfile
+scripts
+.dockerignore
