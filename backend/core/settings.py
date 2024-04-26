@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
-    "huey.contrib.djhuey",
     "rest_framework_simplejwt",
     "corsheaders",
     "rest_framework",
@@ -50,9 +49,11 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "drf_standardized_errors",
     "djoser",
+    "django_celery_beat",
     "events",
     "v1",
     "users",
+    "tasks",
 ]
 
 MIDDLEWARE = [
@@ -159,17 +160,15 @@ CORS_ALLOWED_ORIGINS = [i for i in environ.get("DJANGO_CORS_ORIGINS", "").split(
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        # TODO: Use environment variables for this
+        # TODO: Split REDIS_HOST to multiple variables
         "LOCATION": "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379"),
     }
 }
 
-HUEY = {
-    "huey_class": "huey.RedisHuey",
-    "immediate": False,
-    "connection": {"url": "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")},
-}
-
+CELERY_BROKER_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_TASK_TRACK_STARTED = True
+    
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",

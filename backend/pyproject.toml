@@ -17,13 +17,14 @@ markdown = "^3.6"
 lxml = "^5.2.1"
 requests = "^2.31.0"
 django-cors-headers = "^4.3.1"
-huey = "^2.5.0"
 djangorestframework-simplejwt = "^5.3.1"
 drf-nested-routers = "^0.93.5"
 sorl-thumbnail = "^12.10.0"
 pillow = "^10.3.0"
 drf-spectacular = "^0.27.2"
 drf-standardized-errors = "^0.13.0"
+celery = {extras = ["redis"], version = "^5.4.0"}
+django-celery-beat = "^2.6.0"
 
 [build-system]
 requires = ["poetry-core"]

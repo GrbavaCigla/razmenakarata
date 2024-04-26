@@ -72,6 +72,8 @@ List of environment variables:
 | `POSTGRES_PASSWORD`          | 'postgres'                           |                              |
 | `POSTGRES_PORT`              | 5432                                 |                              |
 |                              |                                      |                              |
+| `REDIS_HOST`                 | 127.0.0.1:6379                       |                              |
+|                              |                                      |                              |
 | `DJANGO_EMAIL_HOST`          | ''                                   |                              |
 | `DJANGO_EMAIL_PORT`          | 587                                  |                              |
 | `DJANGO_EMAIL_USER`          | ''                                   |                              |
