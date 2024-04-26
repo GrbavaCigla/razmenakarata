@@ -11,26 +11,25 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from os import environ
+from os import environ, path
 from django.core.management.utils import get_random_secret_key
 from dotenv import load_dotenv
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(path.join(BASE_DIR.parent, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get("SECRET_KEY", get_random_secret_key())
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ.get("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [i for i in environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if i]
 
 
 # Application definition
@@ -46,12 +45,14 @@ INSTALLED_APPS = [
     "huey.contrib.djhuey",
     "rest_framework_simplejwt",
     "corsheaders",
-    "api",
     "rest_framework",
     "sorl.thumbnail",
     "drf_spectacular",
     "drf_standardized_errors",
-    "djoser"
+    "djoser",
+    "events",
+    "core",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -152,7 +153,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOWED_ORIGINS = [i for i in environ.get("DJANGO_CORS_ORIGINS", "").split(",") if i]
 
 CACHES = {
     "default": {
@@ -192,7 +194,7 @@ THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
 THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
 THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 
-AUTH_USER_MODEL = "api.User"
+AUTH_USER_MODEL = "user.User"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "RazmenaKarata",
@@ -201,14 +203,33 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
+DEFAULT_FROM_EMAIL = environ.get("DJANGO_EMAIL_USER")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
-EMAIL_HOST = environ.get("EMAIL_HOST")
-EMAIL_PORT = int(environ.get("EMAIL_PORT", 587))
-EMAIL_HOST_USER = environ.get("EMAIL_USER")
-EMAIL_HOST_PASSWORD = environ.get("EMAIL_PASSWORD")
+EMAIL_HOST = environ.get("DJANGO_EMAIL_HOST")
+EMAIL_PORT = int(environ.get("DJANGO_EMAIL_PORT", 587))
+EMAIL_HOST_USER = environ.get("DJANGO_EMAIL_USER")
+EMAIL_HOST_PASSWORD = environ.get("DJANGO_EMAIL_PASSWORD")
+
 
 SIMPLE_JWT = {
-   "AUTH_HEADER_TYPES": ("JWT",),
+   "AUTH_HEADER_TYPES": ("Bearer",),
 }
-# TODO: Set djoser SEND_ACTIVATION_EMAIL to true
+
+DELETE_USERNAME = False
+
+DJOSER = {
+    "HIDE_USERS": True,
+    "SET_PASSWORD_RETYPE": True,
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "LOGOUT_ON_PASSWORD_CHANGE": True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": environ.get(
+        "DJANGO_ACTIVATION_URL", "api/v1/auth/activate/{uid}/{token}/"
+    ),
+    "LOGIN_FIELD": "email" if DELETE_USERNAME else "username",
+    # "SERIALIZERS": {"current_user": "api.serializers.CustomUserSerializer"},
+}
+
+ACTIVATION_REDIRECT = environ.get("DJANGO_ACTIVATION_REDIRECT", "")

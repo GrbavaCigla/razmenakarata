@@ -1,5 +1,10 @@
+from django.contrib import admin
 from django.urls import path, include
 
+from drf_spectacular.views import SpectacularAPIView
+
 urlpatterns = [
-    path("api/v1/", include("api.urls", namespace="v1")),
+    path("admin/", admin.site.urls),
+    path("schema/", SpectacularAPIView.as_view()),
+    path("api/v1/", include("core.urls", namespace="v1")),
 ]

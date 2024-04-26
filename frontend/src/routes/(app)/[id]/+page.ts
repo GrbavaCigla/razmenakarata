@@ -1,6 +1,6 @@
 import type { PageLoad } from "./$types";
 
-export const load = (async ({ params }) => {
+export const load = (async ({ params, fetch }) => {
   // TODO: Add error handling
   // TODO: Unhardcode this url
   const promises = await Promise.all([

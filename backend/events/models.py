@@ -1,12 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
 from sorl.thumbnail import ImageField
-
-
-class User(AbstractUser):
-    email_confirmed = models.BooleanField(default=False)
 
 
 class Event(models.Model):

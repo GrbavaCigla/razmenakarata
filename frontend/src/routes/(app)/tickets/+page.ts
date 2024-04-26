@@ -1,6 +1,6 @@
 import type { PageLoad } from "./$types";
 
-export const load = (async ({ params }) => {
+export const load = (async ({ params, fetch }) => {
   return {
     // TODO: Add error handling
     // TODO: Unhardcode this url

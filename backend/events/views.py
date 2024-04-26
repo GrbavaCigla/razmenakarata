@@ -1,14 +1,12 @@
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.decorators import action
-from rest_framework.generics import RetrieveAPIView
 
 from .models import Event, Ticket
-from .permissions import IsOwnerOrReadOnly
-from .serializers import EventSerializer, TicketSerializer, UserSerializer
+from .serializers import EventSerializer, TicketSerializer
+from user.permissions import IsOwnerOrReadOnly
 
 
 class EventViewset(ReadOnlyModelViewSet):
@@ -20,7 +18,8 @@ class EventViewset(ReadOnlyModelViewSet):
 
     @action(detail=True, renderer_classes=[StaticHTMLRenderer])
     def thumbnail(self, request, pk):
-        return HttpResponse(Event.objects.get(pk=pk).thumbnail)
+        # TODO: Check if jpg or some other type
+        return HttpResponse(Event.objects.get(pk=pk).thumbnail, content_type="image/jpg")
 
 
 class TicketViewset(ModelViewSet):
@@ -34,6 +33,3 @@ class TicketViewset(ModelViewSet):
         serializer.save(owner=self.request.user, event_id=self.kwargs["event_pk"])
 
 
-class UserDetail(RetrieveAPIView):
-    queryset = get_user_model().objects.all()
-    serializer_class = UserSerializer

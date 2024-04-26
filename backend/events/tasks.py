@@ -34,7 +34,8 @@ XPATHS = {
 # TODO: Please refactor this
 # TODO: Make this run every hour instead of every minute
 # TODO: This is very error prone, add error handling
-@db_periodic_task(crontab(minute="*/10"))
+# @db_periodic_task(crontab(minute="*/10"))
+@db_periodic_task(crontab(minute="*"))
 def refresh_db():
     resp = requests.get(HOST)
     if not resp.ok:
@@ -47,7 +48,11 @@ def refresh_db():
     for i, element in enumerate(doc.xpath(XPATHS["grid"])):
         data = {}
         data["name"] = element.xpath(XPATHS["name"])[0]
-        data["city"] = element.xpath(XPATHS["city"])[0]
+        try:
+            data["city"] = element.xpath(XPATHS["city"])[0]
+        except IndexError:
+            pass    
+
         data["start_date"] = element.xpath(XPATHS["date"])[0]
         data["page"] = element.xpath(XPATHS["page"])[0]
         thumbnail = element.xpath(XPATHS["thumbnail"])[0]
