@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 
 from .models import Event, Ticket
 from .serializers import EventSerializer, TicketSerializer
-from user.permissions import IsOwnerOrReadOnly
+from users.permissions import IsOwnerOrReadOnly
 
 
 class EventViewset(ReadOnlyModelViewSet):

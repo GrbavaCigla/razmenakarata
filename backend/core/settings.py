@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     "drf_standardized_errors",
     "djoser",
     "events",
-    "core",
-    "user",
+    "v1",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "razmenakarata.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -84,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "razmenakarata.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
@@ -194,7 +194,7 @@ THUMBNAIL_KVSTORE = "sorl.thumbnail.kvstores.redis_kvstore.KVStore"
 THUMBNAIL_ENGINE = "sorl.thumbnail.engines.pil_engine.Engine"
 THUMBNAIL_REDIS_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "users.User"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "RazmenaKarata",
