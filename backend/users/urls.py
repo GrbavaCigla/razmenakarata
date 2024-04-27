@@ -15,15 +15,15 @@ app_name = "auth"
 urlpatterns = [
     path("", include("djoser.urls")),
     path(
-        "token/",
+        "auth/token/",
         TokenObtainPairView.as_view(),
         name="jwt-create",
     ),
     path(
-        "refresh/",
+        "auth/refresh/",
         TokenRefreshView.as_view(),
         name="jwt-refresh",
     ),
-    path("verify/", TokenVerifyView.as_view(), name="jwt-verify"),
-    path("activate/<str:uid>/<str:token>/", UserActivation.as_view()),
+    path("auth/verify/", TokenVerifyView.as_view(), name="jwt-verify"),
+    path("auth/activate/<str:uid>/<str:token>/", UserActivation.as_view()),
 ]
