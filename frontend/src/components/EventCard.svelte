@@ -32,7 +32,7 @@
         <span class="badge mb-1 mr-1">{categ}</span>
       {/each}
       <div class="card-title">
-        <a href="/{id}/">
+        <a href="/events/{id}/">
           {name}
         </a>
       </div>

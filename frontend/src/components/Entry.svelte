@@ -1,31 +1,33 @@
 <script lang="ts">
-  export let name: string | null;
-  export let placeholder: string | null;
-  export let value: string = "";
-  export let errors: string[] = [];
-  export let error: boolean = false;
-  export let type: string = "text";
+	export let name: string;
+	export let placeholder: string | null = null;
+	export let value: string = '';
+	export let error: any;
+	export let type: 'text' | 'email' | 'password' | 'number' | 'date' = 'text';
 
-  function type_action(node: any) {
-    node.type = type;
-  }
+	function type_action(node: any) {
+		node.type = type;
+	}
 
-  $: is_error = errors.length != 0 || error;
+	let _class: string = '';
+	export { _class as class };
+
+	$: is_error = error ? error.detail != null || error[name] : false;
+	$: errors = is_error && error[name] ? error[name] : [];
 </script>
 
-<div>
-  <label for="{name}" class="sr-only">{placeholder}</label>
-  <!-- TODO: Remove red border on error, only red outline should be there -->
-  <input
-    use:type_action
-    class="input w-full bg-base-200"
-    class:input-error="{is_error}"
-    placeholder="{placeholder}"
-    name="{name}"
-    id="{name}"
-    bind:value="{value}"
-  />
-  {#each errors as error}
-    <label class="text-error" for="{name}">{error}</label>
-  {/each}
+<div class={`w-full ${_class}`}>
+	<label for={name} class="sr-only">{placeholder}</label>
+	<input
+		use:type_action
+		class="input w-full bg-base-200"
+		class:input-error={is_error}
+		{placeholder}
+		{name}
+		id={name}
+		bind:value
+	/>
+	{#each errors as error}
+		<label class="text-error label-text" for={name}>{error}</label>
+	{/each}
 </div>
