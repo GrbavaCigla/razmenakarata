@@ -10,8 +10,8 @@ services:
   db:
     image: "postgres:16.2-alpine"
     restart: always
-    # volumes:
-    #   - ./db/.pgdata:/var/lib/postgresql/data/
+    volumes:
+      - ./db/.pgdata:/var/lib/postgresql/data/
     expose:
       - $POSTGRES_PORT
     environment:
@@ -42,11 +42,20 @@ services:
      - db
      - redis
      - migrate
-  huey:
+  celery:
     build: ./
     restart: on-failure
-    command: sh docker/entrypoints/huey.sh
+    command: sh docker/entrypoints/celery.sh
     depends_on:
       - db
       - redis
       - django
+  celerybeat:
+    build: ./
+    restart: on-failure
+    command: sh docker/entrypoints/celerybeat.sh
+    depends_on:
+      - db
+      - redis
+      - django
+      - celery

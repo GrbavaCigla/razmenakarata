@@ -20,23 +20,23 @@ class Event(models.Model):
         ordering = ["start_date"]
 
 
+class Package(models.Model):
+    name = models.CharField(max_length=64)
+    event = models.ForeignKey(Event, related_name="packages", on_delete=models.CASCADE)
+
+
 class Ticket(models.Model):
     price = models.PositiveIntegerField()
     event = models.ForeignKey(Event, models.CASCADE)
     amount = models.PositiveSmallIntegerField(default=1)
     online = models.BooleanField()
-    package = models.CharField(max_length=128)
+    package = models.ForeignKey(Package, models.SET_NULL, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["price"]
-
-
-class Package(models.Model):
-    name = models.CharField(max_length=64)
-    event = models.ForeignKey(Event, related_name="packages", on_delete=models.CASCADE)
 
 
 class Category(models.Model):

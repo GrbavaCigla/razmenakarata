@@ -48,6 +48,6 @@ def fetch_events(self):
 app.conf.beat_schedule = {
     "fetch_events": {
         "task": "tasks.tasks.fetch_events",
-        "schedule": crontab(minute="*"),
+        "schedule": crontab(minute="*/5"),
     },
 }

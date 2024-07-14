@@ -202,7 +202,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-DEFAULT_FROM_EMAIL = environ.get("DJANGO_EMAIL_USER")
+DEFAULT_FROM_EMAIL = environ.get("DJANGO_EMAIL_FROM", environ.get("DJANGO_EMAIL_USER"))
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = environ.get("DJANGO_EMAIL_HOST")
@@ -215,7 +215,8 @@ SIMPLE_JWT = {
    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-DELETE_USERNAME = False
+DELETE_USERNAME = True
+INCLUDE_ACTIVATION_VIEW = environ.get("DJANGO_INCLUDE_ACTIVATION_VIEW", "True") == "True"
 
 DJOSER = {
     "HIDE_USERS": True,
@@ -225,7 +226,7 @@ DJOSER = {
     "LOGOUT_ON_PASSWORD_CHANGE": True,
     "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_URL": environ.get(
-        "DJANGO_ACTIVATION_URL", "api/v1/auth/activate/{uid}/{token}/"
+        "DJANGO_ACTIVATION_URL", "api/v1/auth/activate/{uid}/{token}/" if INCLUDE_ACTIVATION_VIEW else None
     ),
     "LOGIN_FIELD": "email" if DELETE_USERNAME else "username",
     # "SERIALIZERS": {"current_user": "api.serializers.CustomUserSerializer"},

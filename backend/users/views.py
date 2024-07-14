@@ -1,5 +1,7 @@
 import requests
+import json
 
+from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import redirect
 
@@ -14,13 +16,13 @@ class UserActivation(APIView):
     def get(self, request, uid, token):
         payload = {"uid": uid, "token": token}
 
-        url = request.build_absolute_uri("/api/v1/auth/users/activation/")
+        url = request.build_absolute_uri("/api/v1/users/activation/")
         response = requests.post(url, data=payload)
 
         if response.ok:
             return redirect(settings.ACTIVATION_REDIRECT)
 
-        return Response(response.content)
+        return JsonResponse(json.loads(response.content.decode()))
 
 
 class UserDetail(RetrieveAPIView):
