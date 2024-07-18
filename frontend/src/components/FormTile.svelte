@@ -1,8 +1,8 @@
 <script lang="ts">
-  export let name: string;
+  export let title: string;
 </script>
 
 <div class="flex flex-col space-y-2">
-  <span class="font-bold">{name}</span>
+  <span class="font-bold">{title}</span>
   <slot />
 </div>

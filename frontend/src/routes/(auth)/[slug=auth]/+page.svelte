@@ -2,14 +2,30 @@
     import Entry from "$components/Entry.svelte";
     import type { PageData, ActionData } from "./$types";
     import { enhance } from "$app/forms";
+    import { page } from "$app/stores";
 
     export let data: PageData;
     export let form: ActionData;
 
+    let is_loading = false;
+
     $: is_login = data.action == "login";
 </script>
 
-<form method="POST" class="flex flex-col gap-4" action="?/{data.action}" use:enhance>
+<form
+    method="POST"
+    class="flex flex-col gap-4"
+    action="?/{data.action}{$page.url.searchParams.get('redirect') == null
+        ? ''
+        : '&redirect=' + $page.url.searchParams.get('redirect')}"
+    use:enhance="{() => {
+        is_loading = true;
+        return async ({ update }) => {
+            is_loading = false;
+            update();
+        };
+    }}"
+>
     <span class="text-3xl font-bold text-center">
         {#if is_login}
             Ulogujte se
@@ -66,20 +82,23 @@
     <!-- TODO: Add animations -->
     <div class="flex btn-group no-animation">
         {#if is_login}
-            <input
-                type="submit"
-                class="btn btn-primary flex-1"
-                value="Ulogujte se"
-            />
+            <button class="btn btn-primary flex-1">
+                Ulogujte se
+                <span class="loading" class:hidden="{!is_loading}"></span>
+            </button>
             <a href="/register/" class="btn">Registrujte se</a>
         {:else}
             <a href="/login/" class="btn">Ulogujte se</a>
-            <input
-                type="submit"
-                class="btn transition-all btn-primary flex-1"
-                value="Registrujte se"
-            />
+            <button class="btn btn-primary flex-1">
+                Registrujte se
+                <span class="loading" class:hidden="{!is_loading}"></span>
+            </button>
         {/if}
     </div>
-	<p class="text-error text-center" class:hidden={form == null || form?.detail == null}>{form?.detail ?? ''}</p>
+    <p
+        class="text-error text-center"
+        class:hidden="{form == null || form?.detail == null}"
+    >
+        {form?.detail ?? ""}
+    </p>
 </form>

@@ -1,11 +1,14 @@
+import { list_events } from "$api/client/event";
 import type { PageLoad } from "./$types";
 
-export const load = (async ({ params, fetch }) => {
-  return {
-    // TODO: Add error handling
-    // TODO: Unhardcode this url
-    events: await fetch("http://127.0.0.1:8000/api/v1/events/")
-      .then((resp) => resp.json())
-      .then((resp) => resp["results"]),
-  };
-}) satisfies PageLoad;
+export const load: PageLoad = async ({ fetch }) => {
+    const load_events = async () => {
+        let {data, error} = await list_events(fetch);
+
+        return data?.results ?? [];
+	};
+
+	return {
+        events: await load_events()
+	};
+};

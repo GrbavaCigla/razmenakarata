@@ -1,1 +1,1 @@
-export const PROTECTED_ROUTES: string[] = ['/profile'];
+export const PROTECTED_ROUTES: string[] = ['/profile', '/tickets'];

@@ -16,7 +16,7 @@
     "@fontsource/righteous": "^5.0.20",
     "@playwright/test": "^1.45.1",
     "autoprefixer": "^10.4.19",
-    "daisyui": "^2.52.0",
+    "daisyui": "2.52.0",
     "fuzzysort": "^3.0.2",
     "postcss": "^8.4.39",
     "postcss-load-config": "^6.0.1",
