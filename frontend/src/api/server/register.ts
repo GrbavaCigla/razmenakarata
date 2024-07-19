@@ -5,9 +5,9 @@ import { unwrap_form } from "$api/utils/unwrap_form";
 import { fail, type Cookies } from "@sveltejs/kit";
 
 export async function register(
+    fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>,
     request: Request,
     url: URL,
-    fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>,
 ) {
     let form = unwrap_form<User>(await request.formData());
 

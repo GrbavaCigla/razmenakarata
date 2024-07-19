@@ -3,6 +3,6 @@ import { register } from '$api/server/register';
 import type { Actions } from './$types';
 
 export const actions = {
-    login: async ({request, cookies, url, fetch}) => await login(request, cookies, url, fetch),
-    register: async ({request, url, fetch}) => await register(request, url, fetch),
+    login: async ({ fetch, request, cookies, url }) => await login(fetch, request, cookies, url,),
+    register: async ({ fetch, request, url }) => await register(fetch, request, url),
 } satisfies Actions;
