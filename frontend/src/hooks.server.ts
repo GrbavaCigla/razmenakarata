@@ -4,8 +4,8 @@ import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (!event.url.pathname.startsWith("/api")) {
-		let { tokens, user } = await authenticateUser(event.cookies, event.fetch);
-		event.locals.tokens = tokens;
+		let { session, user } = await authenticateUser(event.cookies, event.fetch);
+		event.locals.session = session;
 		event.locals.user = user;
 	
 		for (var i of PROTECTED_ROUTES) {

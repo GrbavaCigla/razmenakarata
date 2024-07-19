@@ -6,6 +6,6 @@ export const trailingSlash = 'always';
 export const load: LayoutServerLoad = async ({ locals }: ServerLoadEvent) => {
 	return {
 		user: locals.user,
-		tokens: locals.tokens
+		session: locals.session
 	};
 };

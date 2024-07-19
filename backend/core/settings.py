@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
-    "rest_framework_simplejwt",
     "corsheaders",
     "rest_framework",
+    "rest_framework.authtoken",
     "sorl.thumbnail",
     "drf_spectacular",
     "drf_standardized_errors",
@@ -155,7 +155,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
-CORS_ALLOWED_ORIGINS = [i for i in environ.get("DJANGO_CORS_ORIGINS", "").split(",") if i]
+CORS_ALLOWED_ORIGINS = [
+    i for i in environ.get("DJANGO_CORS_ORIGINS", "").split(",") if i
+]
 
 CACHES = {
     "default": {
@@ -168,10 +170,10 @@ CACHES = {
 CELERY_BROKER_URL = "redis://" + environ.get("REDIS_HOST", "127.0.0.1:6379")
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_TASK_TRACK_STARTED = True
-    
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": (
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -212,11 +214,13 @@ EMAIL_HOST_PASSWORD = environ.get("DJANGO_EMAIL_PASSWORD")
 
 
 SIMPLE_JWT = {
-   "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 DELETE_USERNAME = True
-INCLUDE_ACTIVATION_VIEW = environ.get("DJANGO_INCLUDE_ACTIVATION_VIEW", "True") == "True"
+INCLUDE_ACTIVATION_VIEW = (
+    environ.get("DJANGO_INCLUDE_ACTIVATION_VIEW", "True") == "True"
+)
 
 DJOSER = {
     "HIDE_USERS": True,
@@ -226,7 +230,8 @@ DJOSER = {
     "LOGOUT_ON_PASSWORD_CHANGE": True,
     "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_URL": environ.get(
-        "DJANGO_ACTIVATION_URL", "api/v1/auth/activate/{uid}/{token}/" if INCLUDE_ACTIVATION_VIEW else None
+        "DJANGO_ACTIVATION_URL",
+        "api/v1/auth/activate/{uid}/{token}/" if INCLUDE_ACTIVATION_VIEW else None,
     ),
     "LOGIN_FIELD": "email" if DELETE_USERNAME else "username",
     # "SERIALIZERS": {"current_user": "api.serializers.CustomUserSerializer"},

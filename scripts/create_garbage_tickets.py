@@ -1,12 +1,12 @@
 from requests import post, get
 
-HOST = 'http://127.0.0.1:8000'
+HOST = 'http://localhost:5173'
 
-resp = post(HOST + '/api/v1/auth/token/', data={
+resp = post(HOST + '/api/v1/auth/login/', data={
     'username': 'test',
     'password': 'test'
 })
-token = resp.json()['access']
+token = resp.json()['auth_token']
 
 count = len(get(HOST + '/api/v1/events/').json()["results"])
 

@@ -1,15 +1,13 @@
-export interface TokenPair {
-	access?: string;
-	refresh?: string;
+export interface Session {
+	auth_token: string;
 }
 
-export interface TokenObtainError {
+export interface SessionObtainError {
 	email?: string[];
 	password?: string[];
 	detail?: string;
 }
 
-export interface TokenRefreshError {
-	refresh?: string[];
+export interface SessionDestroyError {
 	detail?: string;
 }

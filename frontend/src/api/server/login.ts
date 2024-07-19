@@ -1,4 +1,4 @@
-import { retrieve_token } from "$api/client/auth";
+import { create_session } from "$api/client/auth";
 import { handle_redirect } from "$api/utils/handle_redirect";
 import { unwrap_form } from "$api/utils/unwrap_form";
 import { fail, type Cookies } from "@sveltejs/kit";
@@ -11,13 +11,13 @@ export async function login(
 ) {
     let form = unwrap_form<{ email: string, password: string }>(await request.formData());
     
-    let { data, error } = await retrieve_token(fetch, form.email, form.password);
+    let { data, error } = await create_session(fetch, form.email, form.password);
 
-    if (error || data?.refresh == null) {
+    if (error || data?.auth_token == null) {
         return fail(400, error);
     }
 
-    cookies.set('refresh', data.refresh!, {
+    cookies.set('session', data.auth_token!, {
         httpOnly: true,
         path: '/',
         sameSite: 'strict',
