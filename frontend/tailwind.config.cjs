@@ -12,6 +12,7 @@ const config = {
       {
         light: {
           primary: "#ef4444",
+          "primary-content": "FFFFFF",
           secondary: "#fb923c",
           accent: "#37CDBE",
           // TODO: Change this color

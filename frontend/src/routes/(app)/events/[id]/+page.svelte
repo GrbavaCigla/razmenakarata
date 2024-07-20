@@ -43,6 +43,13 @@
           {/each}
         </tbody>
       </table>
+
+      {#if (data?.tickets?.length ?? 0) == 0}
+        <div class="h-96 flex justify-center items-center">
+          <!-- TODO: Add icon -->
+          <p class="text-3xl">Nema karata za ovaj događaj.</p>
+        </div>
+      {/if}
     </div>
   </div>
 </Scaffold>

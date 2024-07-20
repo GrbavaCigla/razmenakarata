@@ -11,14 +11,14 @@
 	<div class="dropdown dropdown-end hidden lg:inline-block">
 		<div class="avatar placeholder">
 			<div
-				class="bg-neutral text-neutral-content mask mask-squircle h-10 w-10"
+				class="mask mask-squircle h-10 w-10"
 			>
 				<!-- TODO: Add user initials -->
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label
 					tabindex="0"
-					class="btn no-animation text-lg font-bold m-1"
+					class="btn btn-neutral no-animation text-lg font-bold m-1"
 				>
 					{$page.data.user.first_name[0].toUpperCase()}{$page.data.user.last_name[1].toUpperCase()}
 				</label>

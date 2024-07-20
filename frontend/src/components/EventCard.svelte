@@ -14,7 +14,7 @@
 </script>
 
 <div
-  class="card card-compact shadow md:hover:-translate-y-1 z-10 bg-base-100 transition-all"
+  class="card card-compact shadow md:hover:-translate-y-1 bg-base-100 transition-all"
 >
   <figure>
     <!-- TODO: Add backend option to get images in different sizes -->
@@ -29,7 +29,7 @@
   <div class="card-body justify-between">
     <div>
       {#each categories as categ}
-        <span class="badge mb-1 mr-1">{categ}</span>
+        <span class="badge badge-neutral mb-1 mr-1">{categ}</span>
       {/each}
       <div class="card-title">
         <a href="/events/{id}/">

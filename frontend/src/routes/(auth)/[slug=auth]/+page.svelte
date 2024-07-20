@@ -81,16 +81,16 @@
     {/if}
 
     <!-- TODO: Add animations -->
-    <div class="flex btn-group no-animation">
+    <div class="flex join no-animation">
         {#if is_login}
-            <button class="btn btn-primary flex-1">
+            <button class="btn join-item btn-primary flex-1">
                 Ulogujte se
                 <span class="loading" class:hidden="{!is_loading}"></span>
             </button>
-            <a href="/register/" class="btn">Registrujte se</a>
+            <a href="/register/" class="btn join-item">Registrujte se</a>
         {:else}
-            <a href="/login/" class="btn">Ulogujte se</a>
-            <button class="btn btn-primary flex-1">
+            <a href="/login/" class="btn join-item">Ulogujte se</a>
+            <button class="btn join-item btn-primary flex-1">
                 Registrujte se
                 <span class="loading" class:hidden="{!is_loading}"></span>
             </button>

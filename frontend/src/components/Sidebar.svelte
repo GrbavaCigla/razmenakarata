@@ -29,15 +29,15 @@
   <div>
     <span class="font-extrabold opacity-80 mb-0.5 ml-2">Stranica</span>
     <div
-      class="btn-group bg-base-100 rounded-box shadow overflow-hidden w-full"
+      class="join bg-base-100 rounded-box shadow overflow-hidden w-full"
     >
-      <button class="btn no-animation btn-ghost">1</button>
-      <button class="btn no-animation btn-ghost">2</button>
-      <button class="btn no-animation grow btn-ghost bg-base-100 btn-disabled"
-        >...</button
-      >
-      <button class="btn no-animation btn-ghost">99</button>
-      <button class="btn no-animation btn-ghost">100</button>
+      <button class="btn join-item no-animation btn-ghost">1</button>
+      <button class="btn join-item no-animation btn-ghost">2</button>
+      <button class="btn join-item no-animation btn-ghost grow !bg-base-100 btn-disabled">
+        ...
+      </button>
+      <button class="btn join-item no-animation btn-ghost">99</button>
+      <button class="btn join-item no-animation btn-ghost">100</button>
     </div>
   </div>
 

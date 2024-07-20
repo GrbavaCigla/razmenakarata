@@ -14,11 +14,12 @@
   }
 </script>
 
-<div class="drawer">
+<!-- TODO: min-h-screen is workaround, find a solution with h-full -->
+<div class="drawer min-h-screen">
   <input id="main-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
     <div class="container mx-auto flex flex-col gap-4 p-4 h-full">
-      <div class="sticky top-4 z-20 w-full">
+      <div class="sticky top-4 z-10 w-full">
         <Navbar />
       </div>
 
@@ -30,7 +31,7 @@
       <slot />
 
       <footer
-        class="shadow mt-auto rounded-box p-4 bg-base-100 flex justify-between"
+        class="shadow rounded-box p-4 bg-base-100 flex justify-between mt-auto"
       >
         <!-- TODO: Add logo -->
         <p>Copyright © 2023 - All right reserved</p>
@@ -43,9 +44,9 @@
     </div>
   </div>
 
-  <div class="drawer-side">
+  <div class="drawer-side z-20">
     <label for="main-drawer" class="drawer-overlay"></label>
-    <ul class="menu gap-2 p-4 w-80 bg-base-200">
+    <ul class="menu gap-2 p-4 w-80 bg-base-200 min-h-full">
       <slot name="sidebar" />
       <div class="divider my-0"></div>
       <LoginLinkButton />
