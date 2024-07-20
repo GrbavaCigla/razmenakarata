@@ -12,7 +12,7 @@
 	let _class: string = '';
 	export { _class as class };
 
-	$: is_error = error ? error.detail != null || error[name] : false;
+	$: is_error = error ? error.non_field_errors != null || error.detail != null || error[name] : false;
 	$: errors = is_error && error[name] ? error[name] : [];
 </script>
 

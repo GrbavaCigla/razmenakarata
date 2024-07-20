@@ -11,7 +11,7 @@ export async function create_ticket(
     return await resolve_api(
         fetch,
         `/api/v1/events/${event_id}/tickets/`,
-        { method: 'PUT', body: JSON.stringify(ticket) },
+        { method: 'POST', body: JSON.stringify(ticket) },
         session
     );
 }

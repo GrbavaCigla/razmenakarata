@@ -5,6 +5,7 @@ export interface Session {
 export interface SessionObtainError {
 	email?: string[];
 	password?: string[];
+	non_field_errors?: string[];
 	detail?: string;
 }
 

@@ -1,3 +1,8 @@
+export interface Package {
+	readonly id?: number;
+    name: string,
+}
+
 export interface Event {
 	readonly id?: number;
     thumbnail: URL,
@@ -5,7 +10,7 @@ export interface Event {
     description: string,
     city: string,
     location: string,
-    packages: string[],
+    packages: Package[],
     categories: string[],
 }
 

@@ -4,7 +4,7 @@ export interface Ticket {
     event: number,
     amount: number,
     online: boolean,
-    package?: number,
+    package: string | number,
     owner: string,
 }
 

@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Entry from "$components/Entry.svelte";
+    import Entry from "$components/Form/Entry.svelte";
     import type { PageData, ActionData } from "./$types";
     import { enhance } from "$app/forms";
     import { page } from "$app/stores";
+    import Detail from "$components/Form/Detail.svelte";
 
     export let data: PageData;
     export let form: ActionData;
@@ -95,10 +96,5 @@
             </button>
         {/if}
     </div>
-    <p
-        class="text-error text-center"
-        class:hidden="{form == null || form?.detail == null}"
-    >
-        {form?.detail ?? ""}
-    </p>
+    <Detail {form} />
 </form>

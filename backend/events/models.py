@@ -30,7 +30,7 @@ class Ticket(models.Model):
     event = models.ForeignKey(Event, models.CASCADE)
     amount = models.PositiveSmallIntegerField(default=1)
     online = models.BooleanField()
-    package = models.ForeignKey(Package, models.SET_NULL, null=True)
+    package = models.ForeignKey(Package, models.CASCADE, blank=False, null=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
