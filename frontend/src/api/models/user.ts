@@ -19,3 +19,15 @@ export interface UserCreateError {
 export interface UserRetrieveError {
 	detail?: string;
 }
+
+
+export interface Activation {
+	uid: string;
+	token: string;
+}
+
+export interface ActivationError {
+	uid?: string[];
+	token?: string[];
+	detail?: string;
+}

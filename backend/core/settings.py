@@ -222,6 +222,7 @@ INCLUDE_ACTIVATION_VIEW = (
     environ.get("DJANGO_INCLUDE_ACTIVATION_VIEW", "True") == "True"
 )
 
+DOMAIN = environ.get("DJANGO_DOMAIN", "127.0.0.1:8000" if INCLUDE_ACTIVATION_VIEW else "localhost:5173")
 DJOSER = {
     "HIDE_USERS": True,
     "SET_PASSWORD_RETYPE": True,

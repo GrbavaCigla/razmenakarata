@@ -1,4 +1,4 @@
-import type { User, UserCreateError, UserRetrieveError } from '$api/models/user';
+import type { Activation, ActivationError, User, UserCreateError, UserRetrieveError } from '$api/models/user';
 import { resolve_api } from '$api/utils/resolve';
 
 export async function create_user(
@@ -33,5 +33,18 @@ export async function update_user(
 		`/api/v1/users/me/`,
 		{ method: 'put', body: JSON.stringify(user) },
 		session
+	);
+}
+
+
+export async function activate_user(
+	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>,
+	uid: string,
+	token: string
+): Promise<{ data: Activation | null; error: ActivationError | null }> {
+	return await resolve_api(
+		fetch,
+		`/api/v1/users/activation/`,
+		{ method: 'post', body: JSON.stringify({ uid: uid, token: token }) }
 	);
 }
