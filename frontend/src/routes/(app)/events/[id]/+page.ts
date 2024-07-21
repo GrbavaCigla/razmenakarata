@@ -1,18 +1,23 @@
+import { list_tickets } from "$api/client/ticket";
+import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
-export const load = (async ({ params, fetch }) => {
+export const load = (async ({ params, fetch, parent }) => {
+  let event_id = ((await parent()).events ?? []).findIndex((event) => event.id == +params.id);
+
+  if (event_id == -1) {
+    error(404, { message: "Not found." });
+  }
+
   // TODO: Add error handling
-  // TODO: Unhardcode this url
-  const promises = await Promise.all([
-    fetch("http://127.0.0.1:8000/api/v1/events/" + params.id)
-      .then((resp) => resp.json()),
-    fetch("http://127.0.0.1:8000/api/v1/events/" + params.id + "/tickets")
-      .then((resp) => resp.json())
-      .then((resp) => resp["results"]),
-  ]);
+  const load_tickets = async () => {
+    let { data, error } = await list_tickets(fetch, +params.id);
+
+    return data?.results ?? [];
+  };
 
   return {
-    event: promises[0],
-    tickets: promises[1],
+    event_id: event_id,
+    tickets: await load_tickets(),
   };
 }) satisfies PageLoad;

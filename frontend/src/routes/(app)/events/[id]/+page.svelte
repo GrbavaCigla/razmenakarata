@@ -7,7 +7,7 @@
 </script>
 
 <Scaffold>
-  <EventDescriptionCard {...data.event} />
+  <EventDescriptionCard {...data.events[data.event_id]} />
   
   <div class="shadow rounded-box p-2 bg-base-100">
     <div class="overflow-auto">

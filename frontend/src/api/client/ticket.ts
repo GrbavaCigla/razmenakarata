@@ -1,4 +1,5 @@
-import type { Ticket, TicketCreateError } from "$api/models/ticket";
+import type { PaginatedList } from "$api/models/generic";
+import type { Ticket, TicketCreateError, TicketListError } from "$api/models/ticket";
 import { resolve_api } from "$api/utils/resolve";
 
 
@@ -13,6 +14,16 @@ export async function create_ticket(
         `/api/v1/events/${event_id}/tickets/`,
         { method: 'POST', body: JSON.stringify(ticket) },
         session
+    );
+}
+
+export async function list_tickets(
+    fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>,
+    event_id: number,
+): Promise<{ data: PaginatedList<Ticket> | null; error: TicketListError | null }> {
+    return await resolve_api(
+        fetch,
+        `/api/v1/events/${event_id}/tickets/`,
     );
 }
 

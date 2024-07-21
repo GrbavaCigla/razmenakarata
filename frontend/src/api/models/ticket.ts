@@ -18,6 +18,6 @@ export interface TicketCreateError {
 	detail?: string;
 }
 
-export interface TicketRetrieveError {
+export interface TicketListError {
 	detail?: string;
 }
