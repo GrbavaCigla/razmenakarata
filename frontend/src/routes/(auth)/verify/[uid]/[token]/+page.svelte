@@ -7,6 +7,6 @@
 
 <UserVerification
     title="Verifikujte se"
-    message={data.message}
-    status={data.status}
+    message="{data.message}"
+    status="{data.status}"
 />

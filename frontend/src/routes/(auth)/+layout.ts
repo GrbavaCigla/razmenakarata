@@ -1,7 +1,7 @@
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = ({ url }) => {
-	return {
+    return {
         action: url.pathname.split('/')[1]
-	};
+    };
 };

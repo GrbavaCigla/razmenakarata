@@ -1,4 +1,4 @@
-import { post_tickets } from '$api/server/post_tickets';
+import { post_tickets } from '$api/server/ticket';
 import type { Actions } from './$types';
 
 export const actions = {

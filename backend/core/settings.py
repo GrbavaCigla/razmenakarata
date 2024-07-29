@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [i for i in environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") i
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     "v1",
     "users",
     "tasks",
+    "chat",
 ]
 
 MIDDLEWARE = [
@@ -222,7 +224,9 @@ INCLUDE_ACTIVATION_VIEW = (
     environ.get("DJANGO_INCLUDE_ACTIVATION_VIEW", "True") == "True"
 )
 
-DOMAIN = environ.get("DJANGO_DOMAIN", "127.0.0.1:8000" if INCLUDE_ACTIVATION_VIEW else "localhost:5173")
+DOMAIN = environ.get(
+    "DJANGO_DOMAIN", "127.0.0.1:8000" if INCLUDE_ACTIVATION_VIEW else "localhost:5173"
+)
 DJOSER = {
     "HIDE_USERS": True,
     "SET_PASSWORD_RETYPE": True,
@@ -239,3 +243,15 @@ DJOSER = {
 }
 
 ACTIVATION_REDIRECT = environ.get("DJANGO_ACTIVATION_REDIRECT", "")
+
+
+ASGI_APPLICATION = "core.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            # TODO: Use .env variable for redis
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

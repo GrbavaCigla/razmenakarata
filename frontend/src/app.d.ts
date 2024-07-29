@@ -5,11 +5,11 @@ import type { User } from "./api/models/user";
 
 // and what to do when importing types
 declare namespace App {
-	// interface Error {}
-	interface Locals {
-		user?: User,
-		session?: string,
-	}
-	// interface PageData {}
-	// interface Platform {}
+    // interface Error {}
+    interface Locals {
+        user?: User,
+        session?: string,
+    }
+    // interface PageData {}
+    // interface Platform {}
 }

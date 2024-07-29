@@ -10,7 +10,7 @@ export async function login(
     url: URL,
 ) {
     let form = unwrap_form<{ email: string, password: string }>(await request.formData());
-    
+
     let { data, error } = await create_session(fetch, form.email, form.password);
 
     if (error || data?.auth_token == null) {

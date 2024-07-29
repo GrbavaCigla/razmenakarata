@@ -1,10 +1,10 @@
 export interface Package {
-	readonly id?: number;
+    readonly id?: number;
     name: string,
 }
 
 export interface Event {
-	readonly id?: number;
+    readonly id?: number;
     thumbnail: URL,
     name: string,
     description: string,
@@ -15,5 +15,5 @@ export interface Event {
 }
 
 export interface EventListError {
-	detail?: string;
+    detail?: string;
 }

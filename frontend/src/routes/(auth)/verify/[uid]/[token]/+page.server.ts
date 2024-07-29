@@ -1,8 +1,8 @@
 import { activate_user } from '$api/client/user';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({fetch, params}) => {
-    let {data, error} = await activate_user(fetch, params.uid, params.token);
+export const load: PageServerLoad = async ({ fetch, params }) => {
+    let { data, error } = await activate_user(fetch, params.uid, params.token);
 
     if (error) {
         return {

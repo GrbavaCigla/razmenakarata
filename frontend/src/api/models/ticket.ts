@@ -1,5 +1,5 @@
 export interface Ticket {
-	readonly id?: number;
+    readonly id?: number;
     price: number,
     event: number,
     amount: number,
@@ -15,9 +15,9 @@ export interface TicketCreateError {
     online?: string[],
     package?: string[],
     owner?: string[],
-	detail?: string;
+    detail?: string;
 }
 
 export interface TicketListError {
-	detail?: string;
+    detail?: string;
 }

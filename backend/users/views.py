@@ -5,11 +5,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import redirect
 
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.views import APIView, Response
-
-from .models import User
-from .serializers import UserSerializer
+from rest_framework.views import APIView
 
 
 class UserActivation(APIView):
@@ -23,8 +19,3 @@ class UserActivation(APIView):
             return redirect(settings.ACTIVATION_REDIRECT)
 
         return JsonResponse(json.loads(response.content.decode()))
-
-
-class UserDetail(RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
