@@ -12,5 +12,6 @@ export interface ChatListError {
 
 export interface ChatCreateError {
     ticket?: string[],
-    detail?: string
+    non_field_errors?: string[],
+    detail?: string,
 }

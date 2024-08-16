@@ -1,9 +1,8 @@
-from django.urls import path, include
 from django.conf import settings
+from django.urls import include, path
 from djoser.views import TokenCreateView, TokenDestroyView
 
 from .views import UserActivation
-
 
 app_name = "auth"
 

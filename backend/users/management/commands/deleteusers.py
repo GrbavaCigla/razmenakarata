@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.core.management.base import BaseCommand
 
 from ...models import User
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -10,5 +11,3 @@ class Command(BaseCommand):
 
     def delete_users(self):
         User.objects.all().delete()
-        
-        

@@ -1,8 +1,8 @@
 from django.http import HttpResponse
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
-from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.renderers import StaticHTMLRenderer
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from .models import Event, Ticket
 from .serializers import EventSerializer, TicketSerializer
@@ -19,7 +19,9 @@ class EventViewset(ReadOnlyModelViewSet):
     @action(detail=True, renderer_classes=[StaticHTMLRenderer])
     def thumbnail(self, request, pk):
         # TODO: Check if jpg or some other type
-        return HttpResponse(Event.objects.get(pk=pk).thumbnail, content_type="image/jpg")
+        return HttpResponse(
+            Event.objects.get(pk=pk).thumbnail, content_type="image/jpg"
+        )
 
 
 class TicketViewset(ModelViewSet):
@@ -31,5 +33,3 @@ class TicketViewset(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, event_id=self.kwargs["event_pk"])
-
-

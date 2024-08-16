@@ -1,11 +1,11 @@
 import requests
 
-from lxml import html
 from celery.schedules import crontab
+from lxml import html
 
 from .utils import scrape_page_data
 from .xpaths import GRID_XPATH, LANDING_XPATHS, XPATHS
-from events.models import Event, Package, Category
+from events.models import Category, Event, Package
 from core.celery import app
 
 HOST = "http://new.gigstix.com"

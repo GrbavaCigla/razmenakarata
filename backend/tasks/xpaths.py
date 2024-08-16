@@ -1,4 +1,4 @@
-from .utils import save_image, parse_date, strip_list
+from .utils import parse_date, save_image, strip_list
 
 GRID_XPATH = '//div[@class="gt-col"]'
 LANDING_XPATHS = {

@@ -10,7 +10,7 @@ export async function create_chat(
 ): Promise<{ data: Chat | null; error: ChatCreateError | null }> {
     return await resolve_api(
         fetch,
-        `/api/v1/chat/`,
+        `/api/v1/chats/`,
         { method: 'POST', body: JSON.stringify({ "ticket": ticket_id }) },
         session
     );
@@ -23,7 +23,7 @@ export async function list_chats(
 ): Promise<{ data: PaginatedList<Chat> | null; error: ChatListError | null }> {
     return await resolve_api(
         fetch,
-        `/api/v1/chat/`,
+        `/api/v1/chats/`,
         { method: "GET" },
         session
     );

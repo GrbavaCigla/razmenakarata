@@ -1,6 +1,8 @@
 from datetime import datetime
 
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
+from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import (
     CharField,
     DateTimeField,
@@ -28,6 +30,19 @@ class ChatSerializer(ModelSerializer):
         self.fields["ticket"] = TicketSerializer(read_only=True)
 
         return super().to_representation(instance)
+
+    def validate(self, attrs):
+        request = self.context.get("request")
+        if (
+            request
+            and request.method == "POST"
+            and attrs["ticket"].owner == request.user
+        ):
+            raise ValidationError(
+                _("Cannot create a chat between two identical users."),
+                "identical_users",
+            )
+        return super().validate(attrs)
 
     class Meta:
         model = Chat

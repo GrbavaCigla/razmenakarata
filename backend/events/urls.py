@@ -1,5 +1,5 @@
-from django.urls import path, include
-from rest_framework_nested.routers import SimpleRouter, NestedSimpleRouter
+from django.urls import include, path
+from rest_framework_nested.routers import NestedSimpleRouter, SimpleRouter
 
 from .views import EventViewset, TicketViewset
 

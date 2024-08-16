@@ -1,12 +1,10 @@
-import datetime
-from typing import Any
-from re import findall
 from io import BytesIO
+from re import findall
+from typing import Any
 
 import requests
-from lxml.html import HtmlElement
-
 from django.core.files import File
+from lxml.html import HtmlElement
 
 DATE_REGEX = r"(\d{1,2})\.\s(\w+)\s(\d{4})\.\s*(\d{2}\.\d{2})*"
 MONTHS = {

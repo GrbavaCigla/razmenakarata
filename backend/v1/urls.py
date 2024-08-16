@@ -1,5 +1,4 @@
-from django.urls import path, include
-
+from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView
 
 app_name = "v1"
