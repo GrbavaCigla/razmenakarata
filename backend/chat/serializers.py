@@ -31,18 +31,13 @@ class ChatSerializer(ModelSerializer):
 
         return super().to_representation(instance)
 
-    def validate(self, attrs):
+    def validate_ticket(self, ticket):
         request = self.context.get("request")
-        if (
-            request
-            and request.method == "POST"
-            and attrs["ticket"].owner == request.user
-        ):
+        if request and request.method == "POST" and ticket.owner == request.user:
             raise ValidationError(
-                _("Cannot create a chat between two identical users."),
-                "identical_users",
+                _("You cannot purchase your ticket."),
+                code="identical_users",
             )
-        return super().validate(attrs)
 
     class Meta:
         model = Chat
