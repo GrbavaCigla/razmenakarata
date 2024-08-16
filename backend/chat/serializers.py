@@ -38,6 +38,8 @@ class ChatSerializer(ModelSerializer):
                 _("You cannot purchase your ticket."),
                 code="identical_users",
             )
+        
+        return ticket
 
     class Meta:
         model = Chat
