@@ -3,12 +3,14 @@ from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueTogetherValidator
 from rest_framework.serializers import (
     CharField,
     DateTimeField,
     ModelSerializer,
     PrimaryKeyRelatedField,
     Serializer,
+    CurrentUserDefault,
 )
 
 from events.serializers import TicketSerializer
@@ -18,6 +20,7 @@ User = get_user_model()
 
 
 class ChatSerializer(ModelSerializer):
+    owner = PrimaryKeyRelatedField(default=CurrentUserDefault(), read_only=True)
     user = PrimaryKeyRelatedField(source="owner", read_only=True)
 
     def to_representation(self, instance):
@@ -28,6 +31,7 @@ class ChatSerializer(ModelSerializer):
             )
 
         self.fields["ticket"] = TicketSerializer(read_only=True)
+        del self.fields["owner"]
 
         return super().to_representation(instance)
 
@@ -38,13 +42,13 @@ class ChatSerializer(ModelSerializer):
                 _("You cannot purchase your ticket."),
                 code="identical_users",
             )
-        
+
         return ticket
 
     class Meta:
         model = Chat
-        fields = ("id", "user", "ticket")
-        read_only_fields = ("id", "user")
+        fields = ("id", "user", "ticket", "owner")
+        read_only_fields = ("id", "user", "owner")
 
 
 class MessageSerializer(Serializer):

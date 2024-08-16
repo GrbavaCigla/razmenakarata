@@ -33,3 +33,6 @@ class TicketViewset(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, event_id=self.kwargs["event_pk"])
+
+    def perform_update(self, serializer):
+        serializer.save(owner=self.request.user, event_id=self.kwargs["event_pk"])
