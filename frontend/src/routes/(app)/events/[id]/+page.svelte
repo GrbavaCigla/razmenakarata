@@ -2,7 +2,9 @@
     import { enhance } from "$app/forms";
     import EventDescriptionCard from "$components/EventDescriptionCard.svelte";
     import Scaffold from "$components/Scaffold.svelte";
+    import { notifications } from "$stores/notification";
     import type { PageData } from "./$types";
+    import { Notifications } from "$utils/notifications";
 
     export let data: PageData;
 </script>
@@ -43,7 +45,14 @@
                             <td>{ticket.price}</td>
                             <td>{ticket.owner}</td>
                             <td>
-                                <form action="" method="post" use:enhance>
+                                <form
+                                    action=""
+                                    method="post"
+                                    use:enhance="{() =>
+                                        async ({ result, update }) =>
+                                            ($notifications =
+                                                Notifications.store_reset())}"
+                                >
                                     <input
                                         type="hidden"
                                         name="ticket_id"

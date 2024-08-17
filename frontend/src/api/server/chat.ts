@@ -1,6 +1,7 @@
 import { create_chat } from "$api/client/chat";
 import { handle_redirect } from "$api/utils/handle_redirect";
 import { unwrap_form } from "$api/utils/unwrap_form";
+import { Notifications } from "$utils/notifications";
 import { fail, type Cookies } from "@sveltejs/kit";
 
 export async function post_chat(
@@ -18,9 +19,12 @@ export async function post_chat(
     );
 
     // TODO: Use this error and ignore only if unique constraint failed
-    // if (error) {
-    //     return fail(400, error);
-    // }
+    if (error) {
+        Notifications.set_form(error, cookies);
+        return fail(400, error);
+    }
 
-    throw handle_redirect(url, `/chat/${form.ticket_id}/`);
+    if (data && data.id) {
+        throw handle_redirect(url, `/chat/${data.id}/`);
+    }
 }

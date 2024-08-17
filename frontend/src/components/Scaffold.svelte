@@ -3,15 +3,7 @@
     import LoginLinkButton from "$components/LoginLinkButton.svelte";
     import Alert from "$components/Alert.svelte";
     import { notifications } from "$stores/notification";
-    import { theme } from "$stores/theme";
-
-    function remove_notification(title: string) {
-        var index = $notifications.indexOf(title);
-        if (index > -1) {
-            $notifications.splice(index, 1);
-            $notifications = $notifications;
-        }
-    }
+    import { Notifications } from "$utils/notifications";
 </script>
 
 <!-- TODO: min-h-screen is workaround, find a solution with h-full -->
@@ -22,14 +14,14 @@
             <div class="sticky top-4 z-10 w-full">
                 <Navbar />
             </div>
-
-            {#each $notifications as notif}
+            {#each Object.entries($notifications) as [id, notif]}
                 <!-- TODO: Wire on:click to delete current notification -->
                 <Alert
-                    title="{notif}"
-                    on:click="{remove_notification(notif)}"
+                    title="{notif.message}"
+                    on:click="{() => Notifications.remove(id)}"
                 />
             {/each}
+            <!-- on:click={(Notifications.remove())} -->
 
             <slot />
 
