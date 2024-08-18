@@ -21,7 +21,7 @@ jobs:
     - name: Collect static files
       working-directory: ./backend/
       run: python manage.py collectstatic
-    - name: Copy files over to the server
+    - name: Test ssh
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
