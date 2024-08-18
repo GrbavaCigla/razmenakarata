@@ -27,7 +27,11 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.KEY }}
         ARGS: "-rlgoDzvc -i"
         SOURCE: "backend/"
+        TARGET: "/home/${{ secrets.USERNAME }}/backend/"
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
         REMOTE_PORT: ${{ secrets.PORT }}
+        SCRIPT_BEFORE: |
+          rm -rf backend/
+          mkdir backend/
     
