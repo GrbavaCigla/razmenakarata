@@ -27,6 +27,8 @@
             tabindex="0"
             class="dropdown-content menu p-2 mt-1 shadow bg-base-100 rounded-box w-52"
         >
+            <li><a href="/profile">Moj nalog</a></li>
+            <li><a href="/chat">Konverzacije</a></li>
             <form method="POST" action="/logout" use:enhance>
                 <input
                     type="hidden"
@@ -37,7 +39,6 @@
                     <button>Izlogujte se</button>
                 </li>
             </form>
-            <li><a href="/profile">Moj nalog</a></li>
         </ul>
     </div>
     <a class="btn btn-ghost lg:hidden" href="/account">Moj nalog</a>
