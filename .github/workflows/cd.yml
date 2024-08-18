@@ -21,13 +21,13 @@ jobs:
     - name: Collect static files
       working-directory: ./backend/
       run: python manage.py collectstatic
-    - name: Copy files over to the server
-      uses: garygrossgarten/github-action-scp@release
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@main
       with:
-        local: ./backend
-        remote: /home/${{ secrets.USERNAME }}/
-        host: ${{ secrets.HOST }}
-        port: ${{ secrets.PORT }}
-        privateKey: ${{ secrets.KEY }}
-        username: ${{ secrets.USERNAME }}
+        SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+        ARGS: "-rlgoDzvc -i"
+        SOURCE: "backend/"
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        REMOTE_PORT: ${{ secrets.PORT }}
     
