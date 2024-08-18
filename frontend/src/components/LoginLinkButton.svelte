@@ -9,7 +9,8 @@
     <a class="btn btn-ghost" href="/login">Ulogujte se</a>
 {:else}
     <div class="dropdown dropdown-end hidden lg:inline-block">
-        <div class="avatar placeholder">
+        <div class="avatar placeholder indicator">
+            <span class="indicator-item badge badge-primary h-0 p-1.5 right-0.5 top-0.5"></span>
             <div class="mask mask-squircle h-10 w-10">
                 <!-- TODO: Add user initials -->
                 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
