@@ -58,10 +58,11 @@ class MessageSerializer(Serializer):
         allow_null=False,
         max_length=256,
     )
-    timestamp = DateTimeField(
-        allow_null=False,
-        default=datetime.now,
-    )
+    # timestamp = DateTimeField(
+    #     allow_null=False,
+    #     default=datetime.now,
+    # )
+    # TODO: Check if really need this because user key is already checked on connect
     owner = PrimaryKeyRelatedField(
         queryset=User.objects.all(),
     )

@@ -19,7 +19,7 @@ class Chat(models.Model):
         null=False,
         blank=False,
     )
-    messages = models.JSONField(null=False, blank=False, default=dict)
+    messages = models.JSONField(null=False, blank=False, default=list)
 
     class Meta:
         unique_together = (
