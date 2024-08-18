@@ -3,7 +3,7 @@ import { notifications } from "$stores/notification";
 import type { Cookies } from "@sveltejs/kit";
 import { default as JSCookies } from "js-cookie";
 
-export type { NotificationStatus, Notification } from "./model";
+export { NotificationStatus, type Notification } from "./model";
 
 import { NotificationStatus, type Notification } from "./model";
 

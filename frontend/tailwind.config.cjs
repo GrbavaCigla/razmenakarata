@@ -12,7 +12,7 @@ const config = {
       {
         light: {
           primary: "#ef4444",
-          "primary-content": "FFFFFF",
+          "primary-content": "#FFFFFF",
           secondary: "#fb923c",
           accent: "#37CDBE",
           // TODO: Change this color
@@ -22,6 +22,8 @@ const config = {
           success: "#36D399",
           warning: "#FBBD23",
           error: "#F87272",
+          // TODO: Change this color
+          "error-content": "#FFFFFF"
         },
       },
       {
