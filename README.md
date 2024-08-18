@@ -17,7 +17,7 @@ Platform to exchange concert/event tickets.
 
 ### Docker
 
-Coming soon, docker branch currently WIP.
+Coming soon.
 
 ### Manual
 
@@ -40,7 +40,7 @@ There are two ways to install dependencies for backend
 
 ```sh
 cd backend
-pipenv install
+poetry install
 ```
 
 ##### Manual
@@ -55,17 +55,33 @@ Again, docker configuration is not done yet...
 
 To run with postgresql instead of sqlite, set `DJANGO_DB` to `postgres`.  
 List of environment variables:
-| Variable            | Default        |
-|---------------------|----------------|
-| `SECRET_KEY`        | random         |
-| `POSTGRES_HOST`     | localhost      |
-| `POSTGRES_NAME`     | postgres       |
-| `POSTGRES_USER`     | postgres       |
-| `POSTGRES_PASSWORD` | postgres       |
-| `POSTGRES_PORT`     | 5432           |
-| `DJANGO_DB`         | sqlite         |
-| `REDIS_HOST`        | 127.0.0.1:6379 |
-| `DJANGO_DEBUG`      | True           |
+
+| Variable                         | Default                         | Note                                |
+|----------------------------------|---------------------------------|-------------------------------------|
+| `DJANGO_SECRET_KEY`              | get_random_secret_key()         |                                     |
+| `DJANGO_DEBUG`                   | True                            |                                     |
+| `DJANGO_CORS_ORIGINS`            | []                              | Hosts are separated by comma        |
+| `DJANGO_ALLOWED_HOSTS`           | []                              | Hosts are separated by comma        |
+| `DJANGO_ACTIVATION_URL`          | 'api/v1/auth/activate/' or None | Used for register activation        |
+| `DJANGO_ACTIVATION_REDIRECT`     | ''                              |                                     |
+| `DJANGO_INCLUDE_ACTIVATION_VIEW` | True                            | Also dictates default value for url |
+|                                  |                                 |                                     |
+| `DJANGO_DB`                      | sqlite                          | `postgresql` or `sqlite`            |
+| `POSTGRES_HOST`                  | 'localhost'                     |                                     |
+| `POSTGRES_NAME`                  | 'postgres'                      |                                     |
+| `POSTGRES_USER`                  | 'postgres'                      |                                     |
+| `POSTGRES_PASSWORD`              | 'postgres'                      |                                     |
+| `POSTGRES_PORT`                  | 5432                            |                                     |
+|                                  |                                 |                                     |
+| `REDIS_HOST`                     | 127.0.0.1:6379                  |                                     |
+|                                  |                                 |                                     |
+| `DJANGO_EMAIL_HOST`              | ''                              |                                     |
+| `DJANGO_EMAIL_PORT`              | 587                             |                                     |
+| `DJANGO_EMAIL_USER`              | ''                              |                                     |
+| `DJANGO_EMAIL_PASSWORD`          | ''                              |                                     |
+| `DJANGO_EMAIL_FROM`              | `DJANGO_EMAIL_USER`             |                                     |
+
+
 
 Before starting backend, start redis with `redis-server` command.
 ### Backend
@@ -75,7 +91,8 @@ python manage.py runserver
 ```
 Background worker:
 ``` sh
-python manage.py run_huey
+python manage.py runcelery
+python manage.py runcelerybeat
 ```
 ### Frontend
 ```sh

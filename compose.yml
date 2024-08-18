@@ -1,0 +1,61 @@
+services:
+  redis:
+    image: "redis:7.2-alpine"
+    restart: always
+    healthcheck:
+      test: redis-cli PING || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
+  db:
+    image: "postgres:16.2-alpine"
+    restart: always
+    volumes:
+      - ./db/.pgdata:/var/lib/postgresql/data/
+    expose:
+      - $POSTGRES_PORT
+    environment:
+      POSTGRES_HOST: $POSTGRES_HOST
+      POSTGRES_DB: $POSTGRES_NAME
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      PGPORT: $POSTGRES_PORT
+    healthcheck:
+      test: echo 'SELECT 1' | PGPASSWORD=$POSTGRES_PASSWORD psql --host $$HOSTNAME --port $POSTGRES_PORT --user $POSTGRES_USER $POSTGRES_NAME
+      interval: 1m
+      timeout: 10s
+      retries: 3
+  migrate:
+    build: ./
+    restart: on-failure
+    command: sh docker/entrypoints/migrate.sh
+    depends_on:
+      - db
+      - redis
+  django:
+    build: ./
+    expose:
+      - 8000
+    restart: always
+    command: sh docker/entrypoints/django.sh
+    depends_on:
+     - db
+     - redis
+     - migrate
+  celery:
+    build: ./
+    restart: on-failure
+    command: sh docker/entrypoints/celery.sh
+    depends_on:
+      - db
+      - redis
+      - django
+  celerybeat:
+    build: ./
+    restart: on-failure
+    command: sh docker/entrypoints/celerybeat.sh
+    depends_on:
+      - db
+      - redis
+      - django
+      - celery

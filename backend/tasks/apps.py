@@ -1,0 +1,20 @@
+from os import path
+from pathlib import Path
+
+from django.apps import AppConfig
+from django.utils.autoreload import autoreload_started
+
+
+def watchdog(sender, *args, **kwargs):
+    to_watch = ["tasks.py", "xpath.py", "utils.py"]
+
+    for i in to_watch:
+        sender.extra_files.add(Path(path.dirname(__file__)) / i)
+
+
+class TasksConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "tasks"
+
+    def ready(self):
+        autoreload_started.connect(watchdog)
