@@ -22,12 +22,11 @@ jobs:
       working-directory: ./backend/
       run: python manage.py collectstatic
     - name: Copy files over to the server
-      uses: appleboy/scp-action@v0.1.7
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        source: "./backend/"
-        target: "/home/${{ secrets.USERNAME }}/backend/"
+        script: echo "this is a test"
     
