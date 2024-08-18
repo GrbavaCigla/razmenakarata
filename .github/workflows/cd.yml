@@ -21,12 +21,13 @@ jobs:
     - name: Collect static files
       working-directory: ./backend/
       run: python manage.py collectstatic
-    - name: Test ssh
-      uses: appleboy/ssh-action@master
+    - name: Copy files over to the server
+      uses: garygrossgarten/github-action-scp@release
       with:
+        local: ./backend
+        remote: /home/${{ secrets.USERNAME }}/
         host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        script: echo "this is a test"
+        privateKey: ${{ secrets.KEY }}
+        username: ${{ secrets.USERNAME }}
     
