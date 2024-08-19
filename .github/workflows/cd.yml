@@ -43,7 +43,7 @@ jobs:
       uses: actions/setup-node@v4.0.3
     - name: Install packages and build
       working-directory: ./frontend/
-      run: npm i --omit=dev && npm run build
+      run: npm i && npm run build
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
       with:
