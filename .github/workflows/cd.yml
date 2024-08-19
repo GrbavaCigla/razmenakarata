@@ -43,18 +43,20 @@ jobs:
       uses: actions/setup-node@v4.0.3
     - name: Install packages and build
       working-directory: ./frontend/
-      run: npm i && npm run build
+      run: npm i --omit=dev && npm run build
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
       with:
         SSH_PRIVATE_KEY: ${{ secrets.KEY }}
         ARGS: "-rlgoDzvc -i"
-        SOURCE: "frontend/build/"
+        SOURCE: "./frontend/build/ ./package.json ./package-lock.json"
         TARGET: "/home/${{ secrets.USERNAME }}/frontend/"
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
         REMOTE_PORT: ${{ secrets.PORT }}
         SCRIPT_BEFORE: |
-          rm -rf frontend/
-          mkdir frontend/
+          rm -rf ./frontend/
+          mkdir ./frontend/
+        SCRIPT_AFTER: |
+          cd ./frontend/ && npm ci --omit=dev
         
