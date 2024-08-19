@@ -183,6 +183,7 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ),
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     # TODO: Enable this
     # "EXCEPTION_HANDLER": "drf_standardized_errors.handler.exception_handler",
     # TODO: Derive and make custom pagination with max_limit
