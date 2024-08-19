@@ -49,7 +49,7 @@ jobs:
       with:
         SSH_PRIVATE_KEY: ${{ secrets.KEY }}
         ARGS: "-rlgoDzvc -i"
-        SOURCE: "./frontend/build/ ./package.json ./package-lock.json"
+        SOURCE: "./frontend/build/ ./frontend/package.json ./frontend/package-lock.json"
         TARGET: "/home/${{ secrets.USERNAME }}/frontend/"
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USERNAME }}
