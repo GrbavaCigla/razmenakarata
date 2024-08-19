@@ -6,7 +6,7 @@ on:
 
 jobs:
   django:
-    name: Django build
+    name: Deploy Django
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -34,4 +34,27 @@ jobs:
         SCRIPT_BEFORE: |
           rm -rf backend/
           mkdir backend/
-    
+  sveltekit:
+    name: Deploy Sveltekit
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node
+      uses: actions/setup-node@v4.0.3
+    - name: Install packages and build
+      working-directory: ./frontend/
+      run: npm i && npm run build
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@main
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+        ARGS: "-rlgoDzvc -i"
+        SOURCE: "frontend/build/"
+        TARGET: "/home/${{ secrets.USERNAME }}/frontend/"
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        REMOTE_PORT: ${{ secrets.PORT }}
+        SCRIPT_BEFORE: |
+          rm -rf frontend/
+          mkdir frontend/
+        
