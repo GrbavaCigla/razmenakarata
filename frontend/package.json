@@ -15,7 +15,7 @@
     "@fontsource/cabin": "^5.0.18",
     "@fontsource/righteous": "^5.0.20",
     "@playwright/test": "^1.45.1",
-    "@sveltejs/adapter-auto": "^3.2.2",
+    "@sveltejs/adapter-node": "^5.2.2",
     "@sveltejs/kit": "^2.5.18",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@types/js-cookie": "^3.0.6",
