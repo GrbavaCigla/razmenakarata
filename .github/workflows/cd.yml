@@ -34,6 +34,8 @@ jobs:
         SCRIPT_BEFORE: |
           rm -rf backend/
           mkdir backend/
+        SCRIPT_AFTER: |
+          pip install -r backend/requirements.txt
   sveltekit:
     name: Deploy Sveltekit
     runs-on: ubuntu-latest
