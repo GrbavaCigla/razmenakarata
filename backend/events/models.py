@@ -40,7 +40,7 @@ class Ticket(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=16)
+    name = models.CharField(max_length=32)
     event = models.ForeignKey(
         Event, related_name="categories", on_delete=models.CASCADE
     )
