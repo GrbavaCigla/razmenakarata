@@ -1,20 +1,14 @@
-from datetime import datetime
-
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
-from rest_framework.validators import UniqueTogetherValidator
 from rest_framework.serializers import (
-    CharField,
-    DateTimeField,
     ModelSerializer,
     PrimaryKeyRelatedField,
-    Serializer,
     CurrentUserDefault,
 )
 
 from events.serializers import TicketSerializer
-from .models import Chat
+from .models import Chat, Message
 
 User = get_user_model()
 
@@ -51,18 +45,7 @@ class ChatSerializer(ModelSerializer):
         read_only_fields = ("id", "user", "owner")
 
 
-class MessageSerializer(Serializer):
-    text = CharField(
-        required=True,
-        allow_blank=False,
-        allow_null=False,
-        max_length=256,
-    )
-    # timestamp = DateTimeField(
-    #     allow_null=False,
-    #     default=datetime.now,
-    # )
-    # TODO: Check if really need this because user key is already checked on connect
-    owner = PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-    )
+class MessageSerializer(ModelSerializer):
+    class Meta:
+        model = Message
+        fields = "__all__"

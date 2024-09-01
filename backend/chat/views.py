@@ -35,6 +35,3 @@ class ChatViewset(
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    @action(detail=True)
-    def messages(self, request, pk):
-        return Response()

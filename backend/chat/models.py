@@ -19,10 +19,16 @@ class Chat(models.Model):
         null=False,
         blank=False,
     )
-    messages = models.JSONField(null=False, blank=False, default=list)
 
     class Meta:
         unique_together = (
             "ticket",
             "owner",
         )
+
+
+class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
+    text = models.TextField(max_length=512)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)

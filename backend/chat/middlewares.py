@@ -1,9 +1,11 @@
 from urllib.parse import parse_qs
 
 from django.contrib.auth.models import AnonymousUser
+from rest_framework.authtoken.models import Token
 
 from channels.db import database_sync_to_async
-from rest_framework.authtoken.models import Token
+from channels.middleware import BaseMiddleware
+
 
 # TODO: Secure this
 @database_sync_to_async
@@ -15,9 +17,9 @@ def get_user_from_session(token_string):
     return user
 
 
-class TokenAuthMiddleWare:
-    def __init__(self, app):
-        self.app = app
+class TokenAuthMiddleWare(BaseMiddleware):
+    def __init__(self, inner):
+        super().__init__(inner)
 
     async def __call__(self, scope, receive, send):
         query_string = scope["query_string"]
@@ -26,4 +28,4 @@ class TokenAuthMiddleWare:
         token = query_dict["token"][0]
         user = await get_user_from_session(token)
         scope["user"] = user
-        return await self.app(scope, receive, send)
+        return await super().__call__(scope, receive, send)
